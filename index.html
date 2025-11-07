@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Clero — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head><body class="dark">
+<header class="hero"><div class="container"><h1 class="brand">Clero</h1><p class="tagline">See Your Career, Steer Your Path</p>
+<div class="cta-row"><button id="try-btn" class="btn primary">Try Demo</button><a href="#contact" class="btn outline">Contact</a></div></div></header>
+<main class="container">
+<section id="problem" class="card"><h2>Problem</h2><div class="two-col"><div><h3>Individual Clarity</h3><p>Professionals lack a clear scorecard and way to benchmark performance and growth.</p></div><div><h3>Promotion Fairness</h3><p>Reviews are subjective and vary across managers, making fair comparison difficult.</p></div></div></section>
+<section id="solution" class="card"><h2>Solution</h2><p>Clero gives individuals a transparent career scorecard and AI-driven recommendations; it provides companies with standardized promotion scorecards to remove bias.</p>
+<div class="dashboard-mock"><div class="score-panel"><h4>Your Career Score</h4><canvas id="scoreChart" width="200" height="200"></canvas><div id="scoreValue" class="score-value">--</div></div>
+<div class="metrics-panel"><h4>Key Metrics</h4><ul><li>Skills Coverage: <span id="skillsPct">--</span></li><li>Impact: <span id="impactPct">--</span></li><li>Peer Percentile: <span id="peerPct">--</span></li></ul></div></div></section>
+<section id="interactive" class="card"><h2>Interactive Demo — Calculate Your Score</h2><form id="scoreForm" class="form-grid"><label>Years in Role<input type="number" id="years" min="0" max="40" value="2"></label><label>Skills Proficiency (1-10)<input type="number" id="skills" min="1" max="10" value="6"></label><label>Impact / Deliverables (1-10)<input type="number" id="impact" min="1" max="10" value="5"></label><label>Manager Feedback (1-10)<input type="number" id="manager" min="1" max="10" value="6"></label><div class="form-actions"><button type="button" id="calcBtn" class="btn primary">Calculate Score</button><button type="button" id="resetBtn" class="btn outline">Reset</button></div></form><div id="result" class="result hidden"><h3>Result</h3><p>Your computed career score and suggested next steps are shown on the dashboard.</p><div class="steps"><h4>Suggested Next Steps</h4><ol id="stepsList"></ol></div></div></section>
+<section id="unit" class="card"><h2>Unit Economics (Snapshot)</h2><table class="table"><thead><tr><th>Metric</th><th>Assumption</th></tr></thead><tbody><tr><td>Paid Plan Price</td><td>$20 / month</td></tr><tr><td>ARPU (annual)</td><td>$240</td></tr><tr><td>Cost / User / Year</td><td>$10–$20</td></tr><tr><td>Gross Margin / User</td><td>$220–$230</td></tr></tbody></table></section>
+<section id="featuremap" class="card"><h2>Feature Map (Phases)</h2><ul><li><b>Phase 1:</b> Scorecard, AI coach, onboarding</li><li><b>Phase 2:</b> Career paths, peer comparison, employer pilots</li><li><b>Phase 3:</b> Full Talent ERP, integrations, analytics</li></ul></section>
+<section id="contact" class="card"><h2>Contact & Next Steps</h2><p>Want a custom demo or to pilot Clero with your team? Email: founders@clero.example</p></section></main>
+<footer class="footer"><div class="container"><small>Clero — See Your Career, Steer Your Path</small></div></footer>
+<script src="script.js"></script></body></html>
