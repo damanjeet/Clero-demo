@@ -1,19 +1,286 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Clero — Demo</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head><body class="dark">
-<header class="hero"><div class="container"><h1 class="brand">Clero</h1><p class="tagline">See Your Career, Steer Your Path</p>
-<div class="cta-row"><button id="try-btn" class="btn primary">Try Demo</button><a href="#contact" class="btn outline">Contact</a></div></div></header>
-<main class="container">
-<section id="problem" class="card"><h2>Problem</h2><div class="two-col"><div><h3>Individual Clarity</h3><p>Professionals lack a clear scorecard and way to benchmark performance and growth.</p></div><div><h3>Promotion Fairness</h3><p>Reviews are subjective and vary across managers, making fair comparison difficult.</p></div></div></section>
-<section id="solution" class="card"><h2>Solution</h2><p>Clero gives individuals a transparent career scorecard and AI-driven recommendations; it provides companies with standardized promotion scorecards to remove bias.</p>
-<div class="dashboard-mock"><div class="score-panel"><h4>Your Career Score</h4><canvas id="scoreChart" width="200" height="200"></canvas><div id="scoreValue" class="score-value">--</div></div>
-<div class="metrics-panel"><h4>Key Metrics</h4><ul><li>Skills Coverage: <span id="skillsPct">--</span></li><li>Impact: <span id="impactPct">--</span></li><li>Peer Percentile: <span id="peerPct">--</span></li></ul></div></div></section>
-<section id="interactive" class="card"><h2>Interactive Demo — Calculate Your Score</h2><form id="scoreForm" class="form-grid"><label>Years in Role<input type="number" id="years" min="0" max="40" value="2"></label><label>Skills Proficiency (1-10)<input type="number" id="skills" min="1" max="10" value="6"></label><label>Impact / Deliverables (1-10)<input type="number" id="impact" min="1" max="10" value="5"></label><label>Manager Feedback (1-10)<input type="number" id="manager" min="1" max="10" value="6"></label><div class="form-actions"><button type="button" id="calcBtn" class="btn primary">Calculate Score</button><button type="button" id="resetBtn" class="btn outline">Reset</button></div></form><div id="result" class="result hidden"><h3>Result</h3><p>Your computed career score and suggested next steps are shown on the dashboard.</p><div class="steps"><h4>Suggested Next Steps</h4><ol id="stepsList"></ol></div></div></section>
-<section id="unit" class="card"><h2>Unit Economics (Snapshot)</h2><table class="table"><thead><tr><th>Metric</th><th>Assumption</th></tr></thead><tbody><tr><td>Paid Plan Price</td><td>$20 / month</td></tr><tr><td>ARPU (annual)</td><td>$240</td></tr><tr><td>Cost / User / Year</td><td>$10–$20</td></tr><tr><td>Gross Margin / User</td><td>$220–$230</td></tr></tbody></table></section>
-<section id="featuremap" class="card"><h2>Feature Map (Phases)</h2><ul><li><b>Phase 1:</b> Scorecard, AI coach, onboarding</li><li><b>Phase 2:</b> Career paths, peer comparison, employer pilots</li><li><b>Phase 3:</b> Full Talent ERP, integrations, analytics</li></ul></section>
-<section id="contact" class="card"><h2>Contact & Next Steps</h2><p>Want a custom demo or to pilot Clero with your team? Email: founders@clero.example</p></section></main>
-<footer class="footer"><div class="container"><small>Clero — See Your Career, Steer Your Path</small></div></footer>
-<script src="script.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Clero – Growth Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script defer src="script.js"></script>
+</head>
+<body class="light">
+  <!-- Top-level app container -->
+  <div id="app">
+
+    <!-- Login / splash -->
+    <div id="login-screen" class="login-screen">
+      <div class="login-card">
+        <div class="login-brand">Clero</div>
+        <p class="login-tagline">See your career, steer your path.</p>
+        <p class="login-sub">Signed in as <strong>Raj Malhotra</strong></p>
+        <button id="login-btn" class="btn primary">Go to Growth Meter</button>
+      </div>
+    </div>
+
+    <!-- Main app -->
+    <div id="main-app" class="app hidden">
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-brand">Clero</span>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">HOME</div>
+          <button class="nav-item active" data-page="growth">
+            Growth Meter
+          </button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">INSIGHTS</div>
+          <button class="nav-item" data-page="insight-technical">Technical</button>
+          <button class="nav-item" data-page="insight-leadership">Leadership</button>
+          <button class="nav-item" data-page="insight-communication">Communication</button>
+          <button class="nav-item" data-page="insight-innovation">Innovation</button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">FEEDBACK</div>
+          <button class="nav-item" data-page="feedback-all">All comments</button>
+          <button class="nav-item" data-page="feedback-ai">AI summary</button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">ACTIONS</div>
+          <button class="nav-item" data-page="actions-plan">Action plan</button>
+          <button class="nav-item" data-page="actions-progress">Action progress</button>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div class="content-area">
+        <!-- Top bar -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <h1 id="page-title">Growth Meter</h1>
+          </div>
+          <div class="topbar-right">
+            <button id="theme-toggle" class="icon-btn" title="Toggle dark mode">🌓</button>
+            <button class="icon-btn" title="Connections">🔗</button>
+            <div class="profile-chip">
+              <div class="avatar">R</div>
+              <div>
+                <div class="name">Raj Malhotra</div>
+                <div class="role">Senior Product Manager</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- PAGES -->
+
+        <!-- Growth Meter page -->
+        <main id="page-growth" class="page active">
+          <div class="grid-2">
+            <div class="card score-card">
+              <div class="card-title">Growth Meter</div>
+              <div class="score-ring">
+                <div class="score-value" id="overall-score">8.2</div>
+                <div class="score-label">/ 10</div>
+              </div>
+              <p class="muted">Your overall career growth score based on latest insights, actions and feedback.</p>
+              <div class="metric-row">
+                <span>Change vs last month</span>
+                <span class="pos">+0.4</span>
+              </div>
+              <div class="metric-row">
+                <span>Benchmark vs org</span>
+                <div class="bench-bar">
+                  <div class="bench-fill" style="width:72%"></div>
+                </div>
+                <span class="muted small">You: 8.2 | Avg: 7.5</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">AI Summary</div>
+              <p class="muted small">Generated from recent feedback, performance indicators, and goal progress.</p>
+              <p id="ai-summary" class="ai-box">
+                Overall performance remains strong, particularly in Leadership and Technical execution.
+                Recent feedback highlights consistent collaboration and ownership of strategic initiatives.
+                Communication remains adequate but could be made more concise for executive stakeholders.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Section Overview</div>
+            <div class="section-grid" id="growth-sections">
+              <!-- filled by JS -->
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">Key strengths</div>
+              <ul class="list">
+                <li>Leadership – influence and decision-making are in top quartile.</li>
+                <li>Technical – strong delivery reliability.</li>
+                <li>Innovation – contributes new ideas to roadmap.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-title">Development areas</div>
+              <ul class="list">
+                <li>Communication – exec-level brevity.</li>
+                <li>Visibility – documenting impact for review cycles.</li>
+                <li>Mentorship – formalizing knowledge-sharing.</li>
+              </ul>
+            </div>
+          </div>
+        </main>
+
+        <!-- INSIGHTS: common template -->
+        <main id="page-insight-technical" class="page">
+          <div class="card">
+            <div class="card-title-wrap">
+              <div>
+                <h2>Technical</h2>
+                <p class="muted">Breakdown of technical capabilities and signals contributing to your overall score.</p>
+              </div>
+              <div class="score-chip good">8.5 / 10</div>
+            </div>
+            <div class="bench-row">
+              <span>Benchmark vs peers</span>
+              <div class="bench-bar"><div class="bench-fill" style="width:78%"></div></div>
+              <span class="muted small">You: 8.5 | Avg: 7.8</span>
+            </div>
+          </div>
+          <div id="technical-indicators" class="indicator-grid">
+            <!-- JS fills -->
+          </div>
+        </main>
+
+        <main id="page-insight-leadership" class="page">
+          <div class="card">
+            <div class="card-title-wrap">
+              <div>
+                <h2>Leadership</h2>
+                <p class="muted">Signals around ownership, influence, decision-making and team enablement.</p>
+              </div>
+              <div class="score-chip good">8.8 / 10</div>
+            </div>
+            <div class="bench-row">
+              <span>Benchmark vs peers</span>
+              <div class="bench-bar"><div class="bench-fill" style="width:80%"></></div></div>
+              <span class="muted small">You: 8.8 | Avg: 7.6</span>
+            </div>
+          </div>
+          <div id="leadership-indicators" class="indicator-grid"></div>
+        </main>
+
+        <main id="page-insight-communication" class="page">
+          <div class="card">
+            <div class="card-title-wrap">
+              <div>
+                <h2>Communication</h2>
+                <p class="muted">Clarity, stakeholder alignment and written/verbal updates.</p>
+              </div>
+              <div class="score-chip mid">7.2 / 10</div>
+            </div>
+            <div class="bench-row">
+              <span>Benchmark vs peers</span>
+              <div class="bench-bar"><div class="bench-fill" style="width:65%"></div></div>
+              <span class="muted small">You: 7.2 | Avg: 7.0</span>
+            </div>
+          </div>
+          <div id="communication-indicators" class="indicator-grid"></div>
+        </main>
+
+        <main id="page-insight-innovation" class="page">
+          <div class="card">
+            <div class="card-title-wrap">
+              <div>
+                <h2>Innovation</h2>
+                <p class="muted">Contribution to new ideas, experimentation, and product improvements.</p>
+              </div>
+              <div class="score-chip good">8.0 / 10</div>
+            </div>
+            <div class="bench-row">
+              <span>Benchmark vs peers</span>
+              <div class="bench-bar"><div class="bench-fill" style="width:70%"></div></div>
+              <span class="muted small">You: 8.0 | Avg: 7.1</span>
+            </div>
+          </div>
+          <div id="innovation-indicators" class="indicator-grid"></div>
+        </main>
+
+        <!-- Feedback pages -->
+        <main id="page-feedback-all" class="page">
+          <div class="card">
+            <h2>All feedback (anonymized)</h2>
+            <p class="muted">Recent comments received across cycles.</p>
+            <ul id="feedback-list" class="feedback-list"></ul>
+          </div>
+        </main>
+
+        <main id="page-feedback-ai" class="page">
+          <div class="card">
+            <h2>AI summary of feedback</h2>
+            <p class="muted">Generated in a professional tone based on recent comments.</p>
+            <div class="ai-box">
+              Raj continues to demonstrate strong functional ownership and follow-through.
+              Peers noted timely collaboration with engineering and design counterparts.
+              Several comments highlighted an opportunity to improve communication brevity in leadership forums.
+              No risk indicators identified in this period.
+            </div>
+          </div>
+        </main>
+
+        <!-- Actions pages -->
+        <main id="page-actions-plan" class="page">
+          <div class="card">
+            <h2>Action plan</h2>
+            <p class="muted">Short-term and long-term development actions. Editable and tied to indicators.</p>
+            <div class="action-groups" id="action-plan"></div>
+          </div>
+        </main>
+
+        <main id="page-actions-progress" class="page">
+          <div class="card">
+            <h2>Action progress</h2>
+            <p class="muted">Kanban view of development actions. Moving items to “Completed” will update your Growth Meter.</p>
+            <div class="kanban" id="kanban-board">
+              <div class="kanban-col">
+                <h3>To Do</h3>
+                <div class="kanban-list" data-col="todo"></div>
+              </div>
+              <div class="kanban-col">
+                <h3>In Progress</h3>
+                <div class="kanban-list" data-col="in-progress"></div>
+              </div>
+              <div class="kanban-col">
+                <h3>Completed</h3>
+                <div class="kanban-list" data-col="done"></div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for indicator details -->
+  <div id="indicator-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">✕</button>
+      <h3 id="modal-title">Indicator details</h3>
+      <p id="modal-score" class="muted small"></p>
+      <p id="modal-desc"></p>
+      <h4>Data sources</h4>
+      <ul id="modal-sources"></ul>
+    </div>
+  </div>
+
+</body>
+</html>
