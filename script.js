@@ -1,4 +1,4 @@
-// basic state
+// basic state 
 const pages = document.querySelectorAll('.page');
 const navItems = document.querySelectorAll('.nav-item');
 const pageTitle = document.getElementById('page-title');
