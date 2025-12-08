@@ -86,7 +86,7 @@
       <div class="sidebar-footer">
         <div class="muted small">
           Role: Counselor<br/>
-          Prototype · v0.4
+          Prototype · v0.5
         </div>
       </div>
     </aside>
@@ -121,7 +121,7 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Student</th>
+                    <th>Name</th>
                     <th>Grade</th>
                     <th>Readiness</th>
                     <th>Risk</th>
@@ -169,31 +169,23 @@
                 <h2>Readiness snapshot — Sara Kim</h2>
                 <span class="muted small">Top student in “needing attention”</span>
               </div>
-            </div>
-
-            <div class="score-tabs">
-              <div class="score-tab active" data-mode="counselor" onclick="setSnapshotMode('counselor')">Counselor score</div>
-              <div class="score-tab" data-mode="system" onclick="setSnapshotMode('system')">AI score</div>
-            </div>
-
-            <div class="score-dual-row snapshot-row">
-              <div class="score-card snapshot-card active" data-mode="counselor" onclick="openSnapshotScore('counselor')">
-                <div class="score-circle">
-                  <div class="score-inner">
-                    <div class="score-number">6.4</div>
-                    <div class="score-label">Counselor score</div>
-                  </div>
-                </div>
-                <p class="muted xsmall">Your adjusted view of Sara’s readiness.</p>
+              <div class="score-tabs snapshot-tabs">
+                <div class="score-tab active" data-mode="counselor" onclick="setSnapshotMode('counselor')">Counselor</div>
+                <div class="score-tab" data-mode="system" onclick="setSnapshotMode('system')">AI</div>
               </div>
-              <div class="score-card snapshot-card" data-mode="system" onclick="openSnapshotScore('system')">
+            </div>
+
+            <div class="snapshot-score-row">
+              <div class="score-card snapshot-card active" data-mode="counselor" onclick="openSnapshotScore()">
                 <div class="score-circle">
                   <div class="score-inner">
-                    <div class="score-number">6.7</div>
-                    <div class="score-label">AI system score</div>
+                    <div class="score-number" id="snapshot-score-number">6.4</div>
+                    <div class="score-label" id="snapshot-score-label">Counselor score</div>
                   </div>
                 </div>
-                <p class="muted xsmall">AI-generated score from academics, ECs, essays and skills.</p>
+                <p class="muted xsmall" id="snapshot-score-desc">
+                  Your adjusted view of Sara’s readiness. AI baseline currently 6.7.
+                </p>
               </div>
             </div>
 
@@ -307,7 +299,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="muted small">Role: Counselor<br/>Prototype · v0.4</div>
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.5</div>
       </div>
     </aside>
 
@@ -466,7 +458,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="muted small">Role: Counselor<br/>Prototype · v0.4</div>
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.5</div>
       </div>
     </aside>
 
@@ -519,27 +511,41 @@
         <div class="tab-panel" id="tab-readiness">
           <div class="two-col">
             <div class="card">
-              <h2>Overall readiness</h2>
-              <div class="score-dual-row">
-                <div class="score-card" onclick="openScoreDetail('system')">
-                  <div class="score-circle">
-                    <div class="score-inner">
-                      <div class="score-number">6.7</div>
-                      <div class="score-label">System score</div>
-                    </div>
-                  </div>
-                  <p class="muted xsmall">AI-generated from academics, rigor, ECs, leadership, skills and essays.</p>
+              <div class="card-header-row">
+                <h2>Overall readiness</h2>
+                <div class="score-tabs readiness-tabs">
+                  <div class="score-tab active" data-mode="counselor" onclick="setReadinessMode('counselor')">Counselor</div>
+                  <div class="score-tab" data-mode="system" onclick="setReadinessMode('system')">AI</div>
                 </div>
-                <div class="score-card" onclick="openScoreDetail('counselor')">
+              </div>
+              <div class="score-hero-row">
+                <!-- Counselor hero (default visible) -->
+                <div class="score-card readiness-card active" data-mode="counselor" onclick="openScoreDetail('counselor')">
                   <div class="score-circle">
                     <div class="score-inner">
                       <div class="score-number">6.4</div>
                       <div class="score-label">Counselor score</div>
                     </div>
                   </div>
-                  <p class="muted xsmall">Your adjusted view of readiness with context from your experience.</p>
+                  <p class="muted xsmall">
+                    Your curated view of Sara’s readiness. AI baseline currently 6.7.
+                  </p>
+                </div>
+
+                <!-- AI hero (shown when toggled) -->
+                <div class="score-card readiness-card" data-mode="system" onclick="openScoreDetail('system')">
+                  <div class="score-circle">
+                    <div class="score-inner">
+                      <div class="score-number">6.7</div>
+                      <div class="score-label">AI system score</div>
+                    </div>
+                  </div>
+                  <p class="muted xsmall">
+                    Derived from academics, course rigor, extracurriculars, leadership, skills and essays.
+                  </p>
                 </div>
               </div>
+
               <div class="subscore-list" style="margin-top:10px;">
                 <div class="subscore-row" onclick="openSubscore('Academics',7,7.5)">
                   <span>Academics</span>
@@ -578,6 +584,7 @@
                 </div>
               </div>
             </div>
+
             <div class="card">
               <h2>College targets</h2>
               <p class="muted small">
@@ -734,7 +741,7 @@
       <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Essays</h1></header>
@@ -768,7 +775,7 @@
       <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Tasks</h1></header>
@@ -802,7 +809,7 @@
       <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Schedule</h1></header>
@@ -836,7 +843,7 @@
       <div class="nav-item active" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Inbox</h1></header>
@@ -870,7 +877,7 @@
       <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item active" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>AI Insights</h1></header>
