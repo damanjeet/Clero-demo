@@ -112,6 +112,11 @@ body {
   font-size: 14px;
 }
 
+.btn-small {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
 .btn-primary {
   background: var(--primary);
   color: #ecfdf5;
@@ -365,7 +370,7 @@ body {
 
 .score-wrapper {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   align-items: center;
 }
 
@@ -400,9 +405,16 @@ body {
   color: var(--text-muted);
 }
 
-.score-trend {
-  font-size: 11px;
-  color: #15803d;
+/* DUAL SCORE */
+
+.score-dual-row {
+  display: flex;
+  gap: 16px;
+}
+
+.score-card {
+  flex: 1;
+  cursor: pointer;
 }
 
 /* SUBSCORES */
@@ -500,10 +512,44 @@ body {
 }
 
 .drawer {
-  width: 320px;
+  width: 340px;
   max-width: 90vw;
   background: #ffffff;
   height: 100%;
   padding: 16px 16px 18px;
   box-shadow: -14px 0 30px rgba(15,23,42,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drawer h3 {
+  margin: 0 0 4px;
+}
+
+.trend-section h4 {
+  margin: 10px 0 4px;
+  font-size: 13px;
+}
+
+.trendline-placeholder {
+  border-radius: 8px;
+  border: 1px dashed var(--border);
+  padding: 10px;
+  margin-top: 4px;
+}
+
+.counselor-notes-section h4 {
+  margin: 10px 0 4px;
+  font-size: 13px;
+}
+
+#counselor-notes {
+  width: 100%;
+  min-height: 70px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 12px;
 }
