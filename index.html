@@ -25,7 +25,8 @@
     </div>
     <div class="login-main">
       <h2>Welcome back</h2>
-      <p class="muted">This prototype focuses on the counselor experience.</p>
+      <p class="muted small">Choose how you want to explore the prototype.</p>
+
       <div class="field">
         <label>Email</label>
         <input type="email" placeholder="you@school.org" />
@@ -34,17 +35,27 @@
         <label>Password</label>
         <input type="password" placeholder="••••••••" />
       </div>
-      <button class="btn btn-primary btn-full" onclick="goToScreen('dashboard-screen')">
-        Continue as Counselor
-      </button>
-      <p class="muted small" style="margin-top:10px;">
-        For now, this just routes you into the counselor dashboard – no auth needed.
+
+      <div class="role-buttons">
+        <button class="btn btn-primary btn-full" onclick="goToScreen('dashboard-screen')">
+          Continue as Counselor
+        </button>
+        <button class="btn btn-outline btn-full" onclick="goToScreen('student-dashboard-screen')">
+          Continue as Student (Sara)
+        </button>
+        <button class="btn btn-outline btn-full" onclick="goToScreen('parent-dashboard-screen')">
+          Continue as Parent (Sara’s mom)
+        </button>
+      </div>
+
+      <p class="muted xsmall" style="margin-top:10px;">
+        All three flows use the same underlying model but with different views for each role.
       </p>
     </div>
   </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- COUNSELOR DASHBOARD -->
 <div id="dashboard-screen" class="screen">
   <div class="app-shell">
     <aside class="sidebar">
@@ -259,7 +270,7 @@
   </div>
 </div>
 
-<!-- STUDENTS SCREEN -->
+<!-- COUNSELOR STUDENTS SCREEN -->
 <div id="students-screen" class="screen">
   <div class="app-shell">
     <aside class="sidebar">
@@ -418,7 +429,7 @@
   </div>
 </div>
 
-<!-- STUDENT PROFILE -->
+<!-- COUNSELOR STUDENT PROFILE -->
 <div id="student-profile-screen" class="screen">
   <div class="app-shell">
     <aside class="sidebar">
@@ -720,7 +731,7 @@
   </div>
 </div>
 
-<!-- ESSAYS / TASKS / SCHEDULE / INBOX / INSIGHTS PLACEHOLDERS -->
+<!-- COUNSELOR OTHER SCREENS (ESSAYS, TASKS, SCHEDULE, INBOX, INSIGHTS) -->
 <div id="essays-screen" class="screen">
   <div class="app-shell">
     <aside class="sidebar">
@@ -885,6 +896,290 @@
         <div class="card">
           <h2>AI insights overview</h2>
           <p class="muted small">Placeholder for cohort-level risk, readiness distributions, and high-impact opportunities.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- STUDENT DASHBOARD -->
+<div id="student-dashboard-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Student view</div>
+        </div>
+      </div>
+
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item active">
+        <span class="icon">🏠</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📊</span><span>Readiness</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">✅</span><span>Action plan</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📝</span><span>Essays</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">💬</span><span>Messages</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">🎓</span><span>College list</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📚</span><span>Resources</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="muted small">
+          Role: Student (Sara)<br/>
+          Prototype · v0.1
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <div>
+          <h1>Hi Sara 👋</h1>
+          <p class="muted small">Here’s your progress toward college readiness this week.</p>
+        </div>
+        <div class="header-actions">
+          <div class="chip">Class of 2025</div>
+          <div class="avatar"></div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <div class="dashboard-grid">
+          <!-- Student: readiness card -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Your readiness today</h2>
+              <span class="muted xsmall">Goal band: 7.5–8.0 for your target schools</span>
+            </div>
+            <div class="score-hero-row">
+              <div class="score-card">
+                <div class="score-circle">
+                  <div class="score-inner">
+                    <div class="score-number">6.4</div>
+                    <div class="score-label">Overall readiness</div>
+                  </div>
+                </div>
+                <p class="muted small" style="margin-top:8px;">
+                  You’re building a solid foundation. The fastest way to move up is to focus on essays and one deeper leadership activity.
+                </p>
+              </div>
+            </div>
+            <div class="trendline-placeholder" style="margin-top:10px;">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="trendline-svg">
+                <polyline
+                  points="0,32 15,30 30,28 45,26 60,24 75,21 90,20 100,18"
+                  fill="none"
+                  stroke="#1E7F77"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="muted xsmall">Last 6 months · Gradual improvement 👍</span>
+            </div>
+          </div>
+
+          <!-- Student: this week focus -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>This week’s focus</h2>
+              <span class="muted xsmall">Each item nudges your score up</span>
+            </div>
+            <ul class="muted small compact-list">
+              <li>📝 Finish Personal Statement Draft 2 by Sunday.</li>
+              <li>🤖 Write 3 bullet points about your role in robotics (what you actually did).</li>
+              <li>📘 Ask your counselor if AP Physics fits next year’s schedule.</li>
+              <li>💬 Send your counselor one question about your college list.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <!-- Student: upcoming events -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Upcoming events</h2>
+            </div>
+            <p class="muted small">
+              • Meeting with your counselor — <b>Tue 3:30 PM</b><br/>
+              • Essay work block — <b>Sat 11:00 AM</b> (your planner)<br/>
+            </p>
+            <p class="muted xsmall">
+              In a full version you could reschedule or add these directly to your calendar.
+            </p>
+          </div>
+
+          <!-- Student: messages preview -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Messages</h2>
+              <span class="pill pill-warning xsmall">2 unread</span>
+            </div>
+            <p class="muted small">
+              <b>Counselor</b> — “Let’s talk about UC essays next week…”<br/>
+              <span class="muted xsmall">3 hours ago</span>
+            </p>
+            <hr style="border:none;border-top:1px solid var(--border);margin:8px 0;">
+            <p class="muted small">
+              <b>Mom & Counselor</b> — “Quick update after the last SAT…”<br/>
+              <span class="muted xsmall">Yesterday</span>
+            </p>
+            <p class="muted xsmall" style="margin-top:8px;">In a full build this would be a full inbox view with threads.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- PARENT DASHBOARD -->
+<div id="parent-dashboard-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Parent view</div>
+        </div>
+      </div>
+
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item active">
+        <span class="icon">🏠</span><span>Overview</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📊</span><span>Progress</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📅</span><span>Meetings</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">💬</span><span>Messages</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📄</span><span>Billing</span>
+      </div>
+      <div class="nav-item">
+        <span class="icon">📚</span><span>Resources</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="muted small">
+          Role: Parent (Sara)<br/>
+          Prototype · v0.1
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <div>
+          <h1>Welcome, Mrs. Kim</h1>
+          <p class="muted small">Here’s how Sara is progressing toward her college goals.</p>
+        </div>
+        <div class="header-actions">
+          <div class="chip">Sara · Class of 2025</div>
+          <div class="avatar"></div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <div class="dashboard-grid">
+          <!-- Parent: high-level status -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>High-level status</h2>
+              <span class="pill pill-success xsmall">Solid foundation</span>
+            </div>
+            <p class="muted small">
+              Sara’s current readiness is <b>6.4 / 10</b>, which puts her in a strong position for many colleges and
+              slightly below the typical range for the most competitive CS programs on her list.
+            </p>
+            <p class="muted small">
+              We’re especially happy with her academics and course load. The main focus for the next few months will be
+              <b>essays</b> and turning existing responsibility into clearer <b>leadership impact</b>.
+            </p>
+          </div>
+
+          <!-- Parent: what we're working on -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>What we’re working on this month</h2>
+            </div>
+            <ul class="muted small compact-list">
+              <li>
+                📝 <b>Essays</b> — Sara is moving her Personal Statement from draft 1 to a stronger draft 2.
+                <br/><span class="muted xsmall">Ownership: Sara · You can help by protecting quiet time on weekends.</span>
+              </li>
+              <li>
+                🤖 <b>Activities & leadership</b> — Clarifying her role and impact in robotics.
+                <br/><span class="muted xsmall">Ownership: Sara & Counselor · We’ll translate this into application language.</span>
+              </li>
+              <li>
+                🎓 <b>College list</b> — Finalizing a balanced mix of reach, match and likely schools.
+                <br/><span class="muted xsmall">Ownership: Counselor · We’ll share updates after the next meeting.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <!-- Parent: progress over time -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Progress over time</h2>
+            </div>
+            <div class="trendline-placeholder">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="trendline-svg">
+                <polyline
+                  points="0,34 15,33 30,31 45,29 60,27 75,24 90,22 100,20"
+                  fill="none"
+                  stroke="#1E7F77"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="muted xsmall">
+                Over the last 6–9 months, Sara’s overall readiness has steadily improved as academics and course rigor increased.
+              </span>
+            </div>
+            <p class="muted xsmall" style="margin-top:8px;">
+              Essays are still early in the process, so we intentionally keep the score a bit conservative until that work is further along.
+            </p>
+          </div>
+
+          <!-- Parent: meetings & messages -->
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Meetings & messages</h2>
+            </div>
+            <p class="muted small">
+              • Next student–counselor session: <b>Tue 3:30 PM</b><br/>
+              • Next parent check-in: <b>Not yet scheduled</b>
+            </p>
+            <p class="muted small" style="margin-top:6px;">
+              Recent message: “Quick update after the latest SAT and how it affects Sara’s list…”
+            </p>
+            <p class="muted xsmall" style="margin-top:8px;">
+              In a full version, this section would let you request meetings, view past notes, and see summarized message threads.
+            </p>
+          </div>
         </div>
       </div>
     </main>
