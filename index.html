@@ -57,36 +57,36 @@
       </div>
 
       <div class="nav-section-label">Main</div>
-      <div class="nav-item active" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item active" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)">
         <span class="icon">🏠</span><span>Dashboard</span>
       </div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)">
         <span class="icon">👥</span><span>Students</span>
       </div>
 
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)">
         <span class="icon">📝</span><span>Essays</span>
       </div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)">
         <span class="icon">✅</span><span>Tasks</span>
       </div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)">
         <span class="icon">📅</span><span>Schedule</span>
       </div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)">
         <span class="icon">📥</span><span>Inbox</span>
       </div>
 
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)">
         <span class="icon">📊</span><span>AI Insights</span>
       </div>
 
       <div class="sidebar-footer">
         <div class="muted small">
           Role: Counselor<br/>
-          Prototype · v0.3
+          Prototype · v0.4
         </div>
       </div>
     </aside>
@@ -162,41 +162,76 @@
             </div>
           </div>
 
-          <!-- RIGHT: Readiness sample widget -->
+          <!-- RIGHT: Readiness snapshot -->
           <div class="card">
             <div class="card-header-row">
-              <h2>Readiness snapshot (sample)</h2>
-              <span class="muted small">Sara Kim · Class of 2025</span>
+              <div>
+                <h2>Readiness snapshot — Sara Kim</h2>
+                <span class="muted small">Top student in “needing attention”</span>
+              </div>
             </div>
-            <div class="score-wrapper">
-              <div class="score-circle">
-                <div class="score-inner">
-                  <div class="score-number">6.7</div>
-                  <div class="score-label">System score</div>
+
+            <div class="score-tabs">
+              <div class="score-tab active" data-mode="counselor" onclick="setSnapshotMode('counselor')">Counselor score</div>
+              <div class="score-tab" data-mode="system" onclick="setSnapshotMode('system')">AI score</div>
+            </div>
+
+            <div class="score-dual-row snapshot-row">
+              <div class="score-card snapshot-card active" data-mode="counselor" onclick="openSnapshotScore('counselor')">
+                <div class="score-circle">
+                  <div class="score-inner">
+                    <div class="score-number">6.4</div>
+                    <div class="score-label">Counselor score</div>
+                  </div>
                 </div>
+                <p class="muted xsmall">Your adjusted view of Sara’s readiness.</p>
               </div>
-              <div class="score-circle">
-                <div class="score-inner">
-                  <div class="score-number">6.4</div>
-                  <div class="score-label">Counselor score</div>
+              <div class="score-card snapshot-card" data-mode="system" onclick="openSnapshotScore('system')">
+                <div class="score-circle">
+                  <div class="score-inner">
+                    <div class="score-number">6.7</div>
+                    <div class="score-label">AI system score</div>
+                  </div>
                 </div>
+                <p class="muted xsmall">AI-generated score from academics, ECs, essays and skills.</p>
               </div>
-              <div class="subscore-list">
-                <div class="subscore-row" onclick="openSubscore('Academics',7,7.5)">
-                  <span>Academics</span>
-                  <div class="subscore-bar"><div style="width:70%"></div></div>
-                  <span class="small">Sys 7.0 / C 7.5</span>
-                </div>
-                <div class="subscore-row" onclick="openSubscore('Leadership',4,5)">
-                  <span>Leadership</span>
-                  <div class="subscore-bar"><div style="width:40%"></div></div>
-                  <span class="small">Sys 4.0 / C 5.0</span>
-                </div>
-                <div class="subscore-row" onclick="openSubscore('Essays',3,3)">
-                  <span>Essays</span>
-                  <div class="subscore-bar"><div style="width:30%"></div></div>
-                  <span class="small">Sys 3.0 / C 3.0</span>
-                </div>
+            </div>
+
+            <div class="subscore-list" style="margin-top:10px;">
+              <div class="subscore-row" onclick="openSnapshotSubscore('Academics',7,7.5)">
+                <span>Academics</span>
+                <div class="subscore-bar"><div style="width:70%"></div></div>
+                <span class="small">Sys 7.0 / C 7.5</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Course rigor',6,6)">
+                <span>Course rigor</span>
+                <div class="subscore-bar"><div style="width:60%"></div></div>
+                <span class="small">Sys 6.0 / C 6.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Extracurricular depth',5,5)">
+                <span>Extracurricular depth</span>
+                <div class="subscore-bar"><div style="width:50%"></div></div>
+                <span class="small">Sys 5.0 / C 5.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Leadership',4,5)">
+                <span>Leadership</span>
+                <div class="subscore-bar"><div style="width:40%"></div></div>
+                <span class="small">Sys 4.0 / C 5.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Consistency',7,7)">
+                <span>Consistency</span>
+                <div class="subscore-bar"><div style="width:70%"></div></div>
+                <span class="small">Sys 7.0 / C 7.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Skills',6,6)">
+                <span>Skills</span>
+                <div class="subscore-bar"><div style="width:60%"></div></div>
+                <span class="small">Sys 6.0 / C 6.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Essays',3,3)">
+                <span>Essays</span>
+                <div class="subscore-bar"><div style="width:30%"></div></div>
+                <span class="small">Sys 3.0 / C 3.0</span>
               </div>
             </div>
           </div>
@@ -245,34 +280,34 @@
       </div>
 
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)">
         <span class="icon">🏠</span><span>Dashboard</span>
       </div>
-      <div class="nav-item active" data-screen="students-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item active" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)">
         <span class="icon">👥</span><span>Students</span>
       </div>
 
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)">
         <span class="icon">📝</span><span>Essays</span>
       </div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)">
         <span class="icon">✅</span><span>Tasks</span>
       </div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)">
         <span class="icon">📅</span><span>Schedule</span>
       </div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)">
         <span class="icon">📥</span><span>Inbox</span>
       </div>
 
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)">
         <span class="icon">📊</span><span>AI Insights</span>
       </div>
 
       <div class="sidebar-footer">
-        <div class="muted small">Role: Counselor<br/>Prototype · v0.3</div>
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.4</div>
       </div>
     </aside>
 
@@ -404,34 +439,34 @@
       </div>
 
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)">
         <span class="icon">🏠</span><span>Dashboard</span>
       </div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)">
         <span class="icon">👥</span><span>Students</span>
       </div>
 
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)">
         <span class="icon">📝</span><span>Essays</span>
       </div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)">
         <span class="icon">✅</span><span>Tasks</span>
       </div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)">
         <span class="icon">📅</span><span>Schedule</span>
       </div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)">
         <span class="icon">📥</span><span>Inbox</span>
       </div>
 
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)">
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)">
         <span class="icon">📊</span><span>AI Insights</span>
       </div>
 
       <div class="sidebar-footer">
-        <div class="muted small">Role: Counselor<br/>Prototype · v0.3</div>
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.4</div>
       </div>
     </aside>
 
@@ -455,7 +490,7 @@
           <div class="tab" data-tab="action" onclick="switchTab(this)">Action plan</div>
           <div class="tab" data-tab="essays" onclick="switchTab(this)">Essays</div>
           <div class="tab" data-tab="tasks" onclick="switchTab(this)">Tasks</div>
-          <div class="tab" data-tab="messages" onclick="switchTab(this)">Inbox</div>
+          <div class="tab" data-tab="messages" onclick="switchTab(this)">Messages</div>
         </div>
 
         <!-- OVERVIEW -->
@@ -570,9 +605,27 @@
               The 90-day plan could move her to ~7.3 with consistent execution.
             </p>
             <ul id="action-list" class="muted small compact-list">
-              <li>Take Personal Statement to Draft 2 by next week.</li>
-              <li>Formalize robotics leadership role and document impact.</li>
-              <li>Confirm 1–2 summer academic or research programs.</li>
+              <li class="action-item">
+                <span class="action-text">Take Personal Statement to Draft 2 by next week.</span>
+                <span class="action-controls">
+                  <button class="action-btn" onclick="markActionDone(this)">Done</button>
+                  <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
+                </span>
+              </li>
+              <li class="action-item">
+                <span class="action-text">Formalize robotics leadership role and document impact.</span>
+                <span class="action-controls">
+                  <button class="action-btn" onclick="markActionDone(this)">Done</button>
+                  <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
+                </span>
+              </li>
+              <li class="action-item">
+                <span class="action-text">Confirm 1–2 summer academic or research programs.</span>
+                <span class="action-controls">
+                  <button class="action-btn" onclick="markActionDone(this)">Done</button>
+                  <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
+                </span>
+              </li>
             </ul>
           </div>
         </div>
@@ -597,10 +650,10 @@
           </div>
         </div>
 
-        <!-- INBOX (per student) -->
+        <!-- MESSAGES (per student) -->
         <div class="tab-panel" id="tab-messages">
           <div class="card">
-            <h2>Inbox (Sara)</h2>
+            <h2>Messages (Sara)</h2>
             <p class="muted small">
               In a full product, this would show all threads with Sara and her parents, plus AI summaries and suggested replies.
             </p>
@@ -618,15 +671,32 @@
 
         <div id="trend-section" class="trend-section">
           <h4>Trend over time</h4>
-          <div class="trend-meta muted xsmall" id="trend-meta">
-            <!-- Filled by JS -->
-          </div>
+          <div class="trend-meta muted xsmall" id="trend-meta"></div>
           <div class="trendline-placeholder">
-            <span class="muted xsmall">Trendline placeholder (last 12 months).</span>
+            <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="trendline-svg">
+              <!-- System score line -->
+              <polyline
+                points="0,30 15,28 30,26 45,24 60,22 75,19 90,16 100,14"
+                fill="none"
+                stroke="#1E7F77"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <!-- Counselor score line -->
+              <polyline
+                points="0,32 15,31 30,30 45,29 60,27 75,25 90,23 100,22"
+                fill="none"
+                stroke="#A6E3C4"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-dasharray="3 3"
+              />
+            </svg>
+            <span class="muted xsmall">Sample trendline (last 12 months) — solid = system, dashed = counselor.</span>
           </div>
-          <p class="muted xsmall" id="trend-summary">
-            <!-- AI interpretation placeholder -->
-          </p>
+          <p class="muted xsmall" id="trend-summary"></p>
         </div>
 
         <div id="counselor-notes-section" class="counselor-notes-section" style="display:none;">
@@ -655,16 +725,16 @@
         </div>
       </div>
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
       <div class="nav-section-label">Work</div>
-      <div class="nav-item active" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-item active" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Essays</h1></header>
@@ -689,16 +759,16 @@
         </div>
       </div>
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
-      <div class="nav-item active" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item active" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Tasks</h1></header>
@@ -723,16 +793,16 @@
         </div>
       </div>
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
-      <div class="nav-item active" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item active" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Schedule</h1></header>
@@ -757,16 +827,16 @@
         </div>
       </div>
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item active" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item active" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Inbox</h1></header>
@@ -791,16 +861,16 @@
         </div>
       </div>
       <div class="nav-section-label">Main</div>
-      <div class="nav-item" data-screen="dashboard-screen" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
-      <div class="nav-item" data-screen="students-screen" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
       <div class="nav-section-label">Work</div>
-      <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
-      <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
-      <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
-      <div class="nav-item active" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
+      <div class="nav-item active" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.4</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>AI Insights</h1></header>
