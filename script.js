@@ -12,7 +12,7 @@ function goToScreenFromNav(el) {
     if (n.getAttribute("data-nav")) n.classList.remove("active");
   });
 
-  // Mark all nav items with same navKey as active
+  // Mark all nav items with the same navKey as active
   if (navKey) {
     document.querySelectorAll(`.nav-item[data-nav="${navKey}"]`).forEach(n => n.classList.add("active"));
   }
@@ -21,25 +21,42 @@ function goToScreenFromNav(el) {
 }
 
 function openStudentProfile() {
-  // Basic navigation only
   goToScreen("student-profile-screen");
 }
 
-/* Snapshot interactions (dashboard → student profile + drawer) */
+/* DASHBOARD SNAPSHOT TOGGLE & CLICK-THROUGH */
 
 function setSnapshotMode(mode) {
-  document.querySelectorAll(".score-tab").forEach(tab => {
+  // Toggle tabs
+  document.querySelectorAll("#dashboard-screen .score-tab").forEach(tab => {
     tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
   });
-  document.querySelectorAll(".snapshot-card").forEach(card => {
-    card.classList.toggle("active", card.getAttribute("data-mode") === mode);
-  });
+
+  // Update score display
+  const numEl = document.getElementById("snapshot-score-number");
+  const labelEl = document.getElementById("snapshot-score-label");
+  const descEl = document.getElementById("snapshot-score-desc");
+  const cardEl = document.querySelector("#dashboard-screen .snapshot-card");
+
+  if (mode === "counselor") {
+    numEl.textContent = "6.4";
+    labelEl.textContent = "Counselor score";
+    descEl.textContent = "Your adjusted view of Sara’s readiness. AI baseline currently 6.7.";
+  } else {
+    numEl.textContent = "6.7";
+    labelEl.textContent = "AI system score";
+    descEl.textContent = "Derived from academics, rigor, ECs, leadership, skills and essays. Counselor currently at 6.4.";
+  }
+
+  cardEl.setAttribute("data-mode", mode);
 }
 
-function openSnapshotScore(type) {
+function openSnapshotScore() {
+  const cardEl = document.querySelector("#dashboard-screen .snapshot-card");
+  const mode = cardEl.getAttribute("data-mode") || "counselor";
   goToScreen("student-profile-screen");
   setTimeout(() => {
-    openScoreDetail(type);
+    openScoreDetail(mode === "system" ? "system" : "counselor");
   }, 60);
 }
 
@@ -50,7 +67,21 @@ function openSnapshotSubscore(label, sysVal, counselVal) {
   }, 60);
 }
 
-/* Drawer / score details */
+/* READINESS TAB TOGGLE */
+
+function setReadinessMode(mode) {
+  // Toggle tabs inside readiness tab
+  document.querySelectorAll("#tab-readiness .score-tab").forEach(tab => {
+    tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
+  });
+
+  // Toggle which hero card is visible
+  document.querySelectorAll("#tab-readiness .readiness-card").forEach(card => {
+    card.classList.toggle("active", card.getAttribute("data-mode") === mode);
+  });
+}
+
+/* DRAWER / SCORE DETAILS */
 
 let currentDetailType = null;
 
@@ -111,7 +142,7 @@ function closeDrawer() {
   document.getElementById("drawer").style.display = "none";
 }
 
-/* Tabs */
+/* TABS */
 
 function switchTab(tabEl) {
   const container = tabEl.closest(".main-content");
@@ -123,7 +154,7 @@ function switchTab(tabEl) {
   document.getElementById("tab-" + tabId).classList.add("active");
 }
 
-/* Action plan editing */
+/* ACTION PLAN EDITING */
 
 function addActionItem() {
   const list = document.getElementById("action-list");
