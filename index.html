@@ -44,8 +44,6 @@
   </div>
 </div>
 
-<!-- COUNSELOR APP SHELL (SPA) -->
-
 <!-- DASHBOARD -->
 <div id="dashboard-screen" class="screen">
   <div class="app-shell">
@@ -77,7 +75,7 @@
         <span class="icon">📅</span><span>Schedule</span>
       </div>
       <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)">
-        <span class="icon">💬</span><span>Messages</span>
+        <span class="icon">📥</span><span>Inbox</span>
       </div>
 
       <div class="nav-section-label">Insights</div>
@@ -88,7 +86,7 @@
       <div class="sidebar-footer">
         <div class="muted small">
           Role: Counselor<br/>
-          Prototype · v0.2
+          Prototype · v0.3
         </div>
       </div>
     </aside>
@@ -134,28 +132,28 @@
                   <tr class="click-row" onclick="openStudentProfile()">
                     <td>Sara Kim</td>
                     <td>12</td>
-                    <td>6.4</td>
+                    <td>System 6.7 / Counsel 6.4</td>
                     <td><span class="pill pill-warning small">Essay behind</span></td>
                     <td>Review Personal Statement Draft 1</td>
                   </tr>
                   <tr class="click-row">
                     <td>Daniel Lopez</td>
                     <td>11</td>
-                    <td>5.8</td>
+                    <td>System 6.0 / Counsel 5.8</td>
                     <td><span class="pill pill-danger small">At risk</span></td>
                     <td>Assign 30-day action plan</td>
                   </tr>
                   <tr class="click-row">
                     <td>Amrita Patel</td>
                     <td>10</td>
-                    <td>7.1</td>
+                    <td>System 7.3 / Counsel 7.1</td>
                     <td><span class="pill pill-success small">On track</span></td>
                     <td>Confirm summer program shortlist</td>
                   </tr>
                   <tr class="click-row">
                     <td>Jordan Smith</td>
                     <td>12</td>
-                    <td>6.9</td>
+                    <td>System 7.1 / Counsel 6.9</td>
                     <td><span class="pill pill-warning small">EC gap</span></td>
                     <td>Deepen one spike activity</td>
                   </tr>
@@ -173,46 +171,31 @@
             <div class="score-wrapper">
               <div class="score-circle">
                 <div class="score-inner">
+                  <div class="score-number">6.7</div>
+                  <div class="score-label">System score</div>
+                </div>
+              </div>
+              <div class="score-circle">
+                <div class="score-inner">
                   <div class="score-number">6.4</div>
-                  <div class="score-label">Readiness</div>
-                  <div class="score-trend small">▲ +0.3 last 30 days</div>
+                  <div class="score-label">Counselor score</div>
                 </div>
               </div>
               <div class="subscore-list">
-                <div class="subscore-row" onclick="openSubscore('Academics',7)">
+                <div class="subscore-row" onclick="openSubscore('Academics',7,7.5)">
                   <span>Academics</span>
                   <div class="subscore-bar"><div style="width:70%"></div></div>
-                  <span class="small">7.0</span>
+                  <span class="small">Sys 7.0 / C 7.5</span>
                 </div>
-                <div class="subscore-row" onclick="openSubscore('Course rigor',6)">
-                  <span>Course rigor</span>
-                  <div class="subscore-bar"><div style="width:60%"></div></div>
-                  <span class="small">6.0</span>
-                </div>
-                <div class="subscore-row" onclick="openSubscore('Extracurricular depth',5)">
-                  <span>Extracurricular depth</span>
-                  <div class="subscore-bar"><div style="width:50%"></div></div>
-                  <span class="small">5.0</span>
-                </div>
-                <div class="subscore-row" onclick="openSubscore('Leadership',4)">
+                <div class="subscore-row" onclick="openSubscore('Leadership',4,5)">
                   <span>Leadership</span>
                   <div class="subscore-bar"><div style="width:40%"></div></div>
-                  <span class="small">4.0</span>
+                  <span class="small">Sys 4.0 / C 5.0</span>
                 </div>
-                <div class="subscore-row" onclick="openSubscore('Consistency',7)">
-                  <span>Consistency</span>
-                  <div class="subscore-bar"><div style="width:70%"></div></div>
-                  <span class="small">7.0</span>
-                </div>
-                <div class="subscore-row" onclick="openSubscore('Skills',6)">
-                  <span>Skills</span>
-                  <div class="subscore-bar"><div style="width:60%"></div></div>
-                  <span class="small">6.0</span>
-                </div>
-                <div class="subscore-row" onclick="openSubscore('Essays',3)">
+                <div class="subscore-row" onclick="openSubscore('Essays',3,3)">
                   <span>Essays</span>
                   <div class="subscore-bar"><div style="width:30%"></div></div>
-                  <span class="small">3.0</span>
+                  <span class="small">Sys 3.0 / C 3.0</span>
                 </div>
               </div>
             </div>
@@ -239,7 +222,7 @@
             <ul class="muted small compact-list">
               <li>Review 3 essays with highest score impact.</li>
               <li>Assign action plans to 2 juniors with stagnating scores.</li>
-              <li>Send updates to 4 parents waiting > 7 days.</li>
+              <li>Send updates to 4 parents waiting &gt; 7 days.</li>
             </ul>
           </div>
         </div>
@@ -252,7 +235,6 @@
 <!-- STUDENTS SCREEN -->
 <div id="students-screen" class="screen">
   <div class="app-shell">
-    <!-- same sidebar as dashboard -->
     <aside class="sidebar">
       <div class="sidebar-logo-row">
         <div class="logo-mark">G</div>
@@ -281,7 +263,7 @@
         <span class="icon">📅</span><span>Schedule</span>
       </div>
       <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)">
-        <span class="icon">💬</span><span>Messages</span>
+        <span class="icon">📥</span><span>Inbox</span>
       </div>
 
       <div class="nav-section-label">Insights</div>
@@ -290,7 +272,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="muted small">Role: Counselor<br/>Prototype · v0.2</div>
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.3</div>
       </div>
     </aside>
 
@@ -353,7 +335,8 @@
                 <tr>
                   <th>Name</th>
                   <th>Grade</th>
-                  <th>Readiness</th>
+                  <th>System</th>
+                  <th>Counselor</th>
                   <th>Status</th>
                   <th>Essays</th>
                   <th>Last touch</th>
@@ -363,6 +346,7 @@
                 <tr class="click-row" onclick="openStudentProfile()">
                   <td>Sara Kim</td>
                   <td>12</td>
+                  <td>6.7</td>
                   <td>6.4</td>
                   <td><span class="pill pill-warning xsmall">Needs attention</span></td>
                   <td>2 awaiting review</td>
@@ -371,6 +355,7 @@
                 <tr class="click-row">
                   <td>Daniel Lopez</td>
                   <td>11</td>
+                  <td>6.0</td>
                   <td>5.8</td>
                   <td><span class="pill pill-danger xsmall">At risk</span></td>
                   <td>1 not started</td>
@@ -379,6 +364,7 @@
                 <tr class="click-row">
                   <td>Amrita Patel</td>
                   <td>10</td>
+                  <td>7.3</td>
                   <td>7.1</td>
                   <td><span class="pill pill-success xsmall">On track</span></td>
                   <td>0 active</td>
@@ -387,6 +373,7 @@
                 <tr class="click-row">
                   <td>Jordan Smith</td>
                   <td>12</td>
+                  <td>7.1</td>
                   <td>6.9</td>
                   <td><span class="pill pill-warning xsmall">EC gap</span></td>
                   <td>3 in progress</td>
@@ -404,10 +391,9 @@
   </div>
 </div>
 
-<!-- STUDENT PROFILE (opened from Dashboard/Students, not sidebar) -->
+<!-- STUDENT PROFILE -->
 <div id="student-profile-screen" class="screen">
   <div class="app-shell">
-    <!-- reuse same sidebar as Students -->
     <aside class="sidebar">
       <div class="sidebar-logo-row">
         <div class="logo-mark">G</div>
@@ -436,7 +422,7 @@
         <span class="icon">📅</span><span>Schedule</span>
       </div>
       <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)">
-        <span class="icon">💬</span><span>Messages</span>
+        <span class="icon">📥</span><span>Inbox</span>
       </div>
 
       <div class="nav-section-label">Insights</div>
@@ -445,7 +431,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="muted small">Role: Counselor<br/>Prototype · v0.2</div>
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.3</div>
       </div>
     </aside>
 
@@ -456,8 +442,8 @@
           <p class="muted small">Class of 2025 · Intended major: Computer Science</p>
         </div>
         <div class="header-actions">
-          <div class="chip">Readiness: 6.4 / 10</div>
-          <div class="chip pill-warning">Essay behind</div>
+          <div class="chip">System: 6.7 / 10</div>
+          <div class="chip pill-warning">Counselor: 6.4 / 10</div>
           <div class="avatar"></div>
         </div>
       </header>
@@ -469,7 +455,7 @@
           <div class="tab" data-tab="action" onclick="switchTab(this)">Action plan</div>
           <div class="tab" data-tab="essays" onclick="switchTab(this)">Essays</div>
           <div class="tab" data-tab="tasks" onclick="switchTab(this)">Tasks</div>
-          <div class="tab" data-tab="messages" onclick="switchTab(this)">Messages</div>
+          <div class="tab" data-tab="messages" onclick="switchTab(this)">Inbox</div>
         </div>
 
         <!-- OVERVIEW -->
@@ -479,7 +465,7 @@
               <h2>Summary</h2>
               <p class="muted small">
                 Sara is on a solid academic path with room to grow in leadership and essay quality. Her readiness
-                has improved by +0.3 in the last month after adding AP Calculus and formalizing her robotics role.
+                has improved recently after adding AP Calculus and formalizing her robotics role.
               </p>
             </div>
             <div class="card">
@@ -498,51 +484,62 @@
         <div class="tab-panel" id="tab-readiness">
           <div class="two-col">
             <div class="card">
-              <h2>Readiness score</h2>
-              <div class="score-wrapper">
-                <div class="score-circle">
-                  <div class="score-inner">
-                    <div class="score-number">6.4</div>
-                    <div class="score-label">Readiness</div>
-                    <div class="score-trend small">▲ +0.3 last 30 days</div>
+              <h2>Overall readiness</h2>
+              <div class="score-dual-row">
+                <div class="score-card" onclick="openScoreDetail('system')">
+                  <div class="score-circle">
+                    <div class="score-inner">
+                      <div class="score-number">6.7</div>
+                      <div class="score-label">System score</div>
+                    </div>
                   </div>
+                  <p class="muted xsmall">AI-generated from academics, rigor, ECs, leadership, skills and essays.</p>
                 </div>
-                <div class="subscore-list">
-                  <div class="subscore-row" onclick="openSubscore('Academics',7)">
-                    <span>Academics</span>
-                    <div class="subscore-bar"><div style="width:70%"></div></div>
-                    <span class="small">7.0</span>
+                <div class="score-card" onclick="openScoreDetail('counselor')">
+                  <div class="score-circle">
+                    <div class="score-inner">
+                      <div class="score-number">6.4</div>
+                      <div class="score-label">Counselor score</div>
+                    </div>
                   </div>
-                  <div class="subscore-row" onclick="openSubscore('Course rigor',6)">
-                    <span>Course rigor</span>
-                    <div class="subscore-bar"><div style="width:60%"></div></div>
-                    <span class="small">6.0</span>
-                  </div>
-                  <div class="subscore-row" onclick="openSubscore('Extracurricular depth',5)">
-                    <span>Extracurricular depth</span>
-                    <div class="subscore-bar"><div style="width:50%"></div></div>
-                    <span class="small">5.0</span>
-                  </div>
-                  <div class="subscore-row" onclick="openSubscore('Leadership',4)">
-                    <span>Leadership</span>
-                    <div class="subscore-bar"><div style="width:40%"></div></div>
-                    <span class="small">4.0</span>
-                  </div>
-                  <div class="subscore-row" onclick="openSubscore('Consistency',7)">
-                    <span>Consistency</span>
-                    <div class="subscore-bar"><div style="width:70%"></div></div>
-                    <span class="small">7.0</span>
-                  </div>
-                  <div class="subscore-row" onclick="openSubscore('Skills',6)">
-                    <span>Skills</span>
-                    <div class="subscore-bar"><div style="width:60%"></div></div>
-                    <span class="small">6.0</span>
-                  </div>
-                  <div class="subscore-row" onclick="openSubscore('Essays',3)">
-                    <span>Essays</span>
-                    <div class="subscore-bar"><div style="width:30%"></div></div>
-                    <span class="small">3.0</span>
-                  </div>
+                  <p class="muted xsmall">Your adjusted view of readiness with context from your experience.</p>
+                </div>
+              </div>
+              <div class="subscore-list" style="margin-top:10px;">
+                <div class="subscore-row" onclick="openSubscore('Academics',7,7.5)">
+                  <span>Academics</span>
+                  <div class="subscore-bar"><div style="width:70%"></div></div>
+                  <span class="small">Sys 7.0 / C 7.5</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Course rigor',6,6)">
+                  <span>Course rigor</span>
+                  <div class="subscore-bar"><div style="width:60%"></div></div>
+                  <span class="small">Sys 6.0 / C 6.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Extracurricular depth',5,5)">
+                  <span>Extracurricular depth</span>
+                  <div class="subscore-bar"><div style="width:50%"></div></div>
+                  <span class="small">Sys 5.0 / C 5.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Leadership',4,5)">
+                  <span>Leadership</span>
+                  <div class="subscore-bar"><div style="width:40%"></div></div>
+                  <span class="small">Sys 4.0 / C 5.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Consistency',7,7)">
+                  <span>Consistency</span>
+                  <div class="subscore-bar"><div style="width:70%"></div></div>
+                  <span class="small">Sys 7.0 / C 7.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Skills',6,6)">
+                  <span>Skills</span>
+                  <div class="subscore-bar"><div style="width:60%"></div></div>
+                  <span class="small">Sys 6.0 / C 6.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Essays',3,3)">
+                  <span>Essays</span>
+                  <div class="subscore-bar"><div style="width:30%"></div></div>
+                  <span class="small">Sys 3.0 / C 3.0</span>
                 </div>
               </div>
             </div>
@@ -564,12 +561,15 @@
         <!-- ACTION PLAN -->
         <div class="tab-panel" id="tab-action">
           <div class="card">
-            <h2>Action plan</h2>
+            <div class="card-header-row">
+              <h2>Action plan</h2>
+              <button class="btn btn-primary btn-small" onclick="addActionItem()">+ Add action item</button>
+            </div>
             <p class="muted small">
               Completing this 30-day plan is estimated to move Sara from <b>6.4 → 6.9</b>.
               The 90-day plan could move her to ~7.3 with consistent execution.
             </p>
-            <ul class="muted small compact-list">
+            <ul id="action-list" class="muted small compact-list">
               <li>Take Personal Statement to Draft 2 by next week.</li>
               <li>Formalize robotics leadership role and document impact.</li>
               <li>Confirm 1–2 summer academic or research programs.</li>
@@ -597,12 +597,12 @@
           </div>
         </div>
 
-        <!-- MESSAGES -->
+        <!-- INBOX (per student) -->
         <div class="tab-panel" id="tab-messages">
           <div class="card">
-            <h2>Messages</h2>
+            <h2>Inbox (Sara)</h2>
             <p class="muted small">
-              Here you’d have a message thread with Sara (and optionally her parents) plus AI summaries and suggested replies.
+              In a full product, this would show all threads with Sara and her parents, plus AI summaries and suggested replies.
             </p>
           </div>
         </div>
@@ -610,23 +610,43 @@
       </div>
     </main>
 
-    <!-- SUBSCORE DRAWER -->
+    <!-- DETAIL DRAWER -->
     <div id="drawer" class="drawer-backdrop" onclick="closeDrawer()">
       <div class="drawer" onclick="event.stopPropagation()">
         <h3 id="drawer-title"></h3>
         <p id="drawer-body" class="muted small"></p>
+
+        <div id="trend-section" class="trend-section">
+          <h4>Trend over time</h4>
+          <div class="trend-meta muted xsmall" id="trend-meta">
+            <!-- Filled by JS -->
+          </div>
+          <div class="trendline-placeholder">
+            <span class="muted xsmall">Trendline placeholder (last 12 months).</span>
+          </div>
+          <p class="muted xsmall" id="trend-summary">
+            <!-- AI interpretation placeholder -->
+          </p>
+        </div>
+
+        <div id="counselor-notes-section" class="counselor-notes-section" style="display:none;">
+          <h4>Counselor notes</h4>
+          <textarea id="counselor-notes" placeholder="Add context for why your score differs from the system…"></textarea>
+          <p class="muted xsmall" id="notes-ai-summary">
+            AI summary of your notes would appear here for parents and future you.
+          </p>
+        </div>
+
         <button class="btn btn-primary" onclick="closeDrawer()">Close</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ESSAYS / TASKS / SCHEDULE / MESSAGES / INSIGHTS SCREENS AS SIMPLE PLACEHOLDERS -->
+<!-- ESSAYS / TASKS / SCHEDULE / INBOX / INSIGHTS PLACEHOLDERS -->
 <div id="essays-screen" class="screen">
   <div class="app-shell">
     <aside class="sidebar">
-      <!-- reuse sidebar; for brevity, assume same structure as others -->
-      <!-- in a real codebase you’d DRY this up -->
       <div class="sidebar-logo-row">
         <div class="logo-mark">G</div>
         <div class="logo-text">
@@ -641,10 +661,10 @@
       <div class="nav-item active" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
       <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
       <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">💬</span><span>Messages</span></div>
+      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.2</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Essays</h1></header>
@@ -660,7 +680,6 @@
 
 <div id="tasks-screen" class="screen">
   <div class="app-shell">
-    <!-- similar sidebar, omitted for brevity -->
     <aside class="sidebar">
       <div class="sidebar-logo-row">
         <div class="logo-mark">G</div>
@@ -676,10 +695,10 @@
       <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
       <div class="nav-item active" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
       <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">💬</span><span>Messages</span></div>
+      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.2</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Tasks</h1></header>
@@ -710,10 +729,10 @@
       <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
       <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
       <div class="nav-item active" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">💬</span><span>Messages</span></div>
+      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.2</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>Schedule</h1></header>
@@ -744,13 +763,13 @@
       <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
       <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
       <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item active" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">💬</span><span>Messages</span></div>
+      <div class="nav-item active" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.2</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
     </aside>
     <main class="main">
-      <header class="main-header"><h1>Messages</h1></header>
+      <header class="main-header"><h1>Inbox</h1></header>
       <div class="main-content">
         <div class="card">
           <h2>Messaging hub</h2>
@@ -778,10 +797,10 @@
       <div class="nav-item" data-screen="essays-screen" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
       <div class="nav-item" data-screen="tasks-screen" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
       <div class="nav-item" data-screen="schedule-screen" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
-      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">💬</span><span>Messages</span></div>
+      <div class="nav-item" data-screen="messages-screen" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
       <div class="nav-section-label">Insights</div>
       <div class="nav-item active" data-screen="insights-screen" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
-      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.2</div></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.3</div></div>
     </aside>
     <main class="main">
       <header class="main-header"><h1>AI Insights</h1></header>
