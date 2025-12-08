@@ -102,6 +102,13 @@ body {
   border: 1px solid var(--border);
 }
 
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
 /* BUTTONS */
 
 .btn {
@@ -120,6 +127,12 @@ body {
 .btn-primary {
   background: var(--primary);
   color: #ecfdf5;
+}
+
+.btn-outline {
+  background: #ffffff;
+  color: var(--primary);
+  border: 1px solid var(--primary-soft);
 }
 
 .btn-full {
@@ -341,7 +354,7 @@ body {
   padding: 5px 6px;
 }
 
-/* Optional: comment this out if you dislike zebra striping */
+/* Optional zebra striping: comment out if you want flat rows */
 /*
 .table tr:nth-child(even) {
   background: #f9fafb;
