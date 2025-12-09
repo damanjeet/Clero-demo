@@ -1,11 +1,15 @@
 :root {
   --primary: #1E7F77;
   --primary-soft: #A6E3C4;
-  --bg: #f5faf7;
+  --bg: #e9f4ef;
   --text: #1f2933;
   --text-muted: #6b7280;
   --card-bg: #ffffff;
-  --border: #e5e7eb;
+  --border: #d1d5db;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -13,6 +17,16 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
   background: var(--bg);
   color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.muted-link {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .screen { display: none; }
@@ -26,7 +40,7 @@ body {
 
 .login-shell {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   min-height: 100vh;
   background: #ffffff;
 }
@@ -148,7 +162,7 @@ body {
 
 .sidebar {
   width: 250px;
-  background: #14564f;
+  background: #0f3f3a;
   color: #ecfdf5;
   padding: 18px;
   display: flex;
@@ -193,7 +207,7 @@ body {
 }
 
 .nav-item.active {
-  background: rgba(166,227,196,0.18);
+  background: rgba(166,227,196,0.2);
 }
 
 .sidebar-footer {
@@ -202,7 +216,7 @@ body {
   border-top: 1px solid rgba(148,163,184,0.4);
 }
 
-/* MAIN */
+/* MAIN AREA */
 
 .main {
   flex: 1;
@@ -216,8 +230,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .header-actions {
@@ -257,22 +274,22 @@ body {
 }
 
 .main-content {
-  padding: 16px 22px 24px;
-  background: var(--bg);
+  padding: 18px 22px 24px;
+  background: linear-gradient(to bottom, #e9f4ef, #dceee6);
 }
 
 /* CARDS & LAYOUT */
 
 .card {
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(15,23,42,0.04);
-  border: 1px solid var(--border);
-  padding: 14px 16px;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.09);
+  border: 1px solid rgba(148,163,184,0.45);
+  padding: 14px 16px 16px;
 }
 
 .card + .card {
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
 .card-header-row {
@@ -282,25 +299,31 @@ body {
   margin-bottom: 8px;
 }
 
+.card-divider {
+  border: none;
+  border-top: 1px solid rgba(209,213,219,0.8);
+  margin: 8px 0;
+}
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1.6fr 1.2fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 18px;
+  margin-bottom: 18px;
   align-items: flex-start;
 }
 
 .dashboard-row {
   display: grid;
   grid-template-columns: 1.4fr 1.2fr;
-  gap: 16px;
+  gap: 18px;
   align-items: flex-start;
 }
 
 .two-col {
   display: grid;
   grid-template-columns: 1.4fr 1.1fr;
-  gap: 16px;
+  gap: 18px;
   align-items: flex-start;
 }
 
@@ -309,7 +332,7 @@ body {
   margin: 6px 0 0;
 }
 
-/* TABLE */
+/* TABLES */
 
 .table-wrapper {
   border-radius: 10px;
@@ -354,13 +377,6 @@ body {
   padding: 5px 6px;
 }
 
-/* Optional zebra striping: comment out if you want flat rows */
-/*
-.table tr:nth-child(even) {
-  background: #f9fafb;
-}
-*/
-
 .click-row {
   cursor: pointer;
 }
@@ -373,7 +389,7 @@ body {
 
 .pill {
   border-radius: 999px;
-  padding: 3px 9px;
+  padding: 3px 8px;
   font-size: 12px;
   display: inline-block;
 }
@@ -393,16 +409,15 @@ body {
   color: #b91c1c;
 }
 
-.pill.small { font-size: 11px; }
 .pill.xsmall { font-size: 10px; }
 
-/* SCORE WIDGET */
+/* SCORE WIDGETS */
 
 .score-circle {
   width: 110px;
   height: 110px;
   border-radius: 999px;
-  background: conic-gradient(#1E7F77 0deg,#A6E3C4 220deg,#e5e7eb 220deg);
+  background: conic-gradient(#1E7F77 0deg,#A6E3C4 225deg,#e5e7eb 225deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -430,21 +445,14 @@ body {
 }
 
 .score-card {
-  cursor: pointer;
+  cursor: default;
 }
 
 .score-hero-row {
   display: flex;
 }
 
-/* Snapshot */
-
-.snapshot-score-row {
-  display: flex;
-  margin-bottom: 4px;
-}
-
-/* Toggle tabs (used for snapshot and readiness) */
+/* SCORE TOGGLE TABS */
 
 .score-tabs {
   display: inline-flex;
@@ -465,16 +473,6 @@ body {
   background: #ffffff;
   color: var(--text);
   box-shadow: 0 1px 3px rgba(15,23,42,0.18);
-}
-
-/* Readiness toggle – only one hero card visible */
-
-.readiness-card {
-  display: none;
-}
-
-.readiness-card.active {
-  display: block;
 }
 
 /* SUBSCORES */
@@ -528,65 +526,18 @@ body {
   font-size: 13px;
 }
 
-/* TABS */
+/* ROLE PANELS */
 
-.tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.tab {
-  padding: 6px 12px;
-  border-radius: 999px 999px 0 0;
-  font-size: 13px;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-.tab.active {
-  background: #ffffff;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-bottom: none;
-}
-
-.tab-panel {
+.role-panel {
   display: none;
 }
 
-.tab-panel.active {
+.role-panel.active {
   display: block;
 }
 
-/* ACTION PLAN */
-
-.action-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.action-text.done {
-  text-decoration: line-through;
-  color: var(--text-muted);
-  opacity: 0.7;
-}
-
-.action-controls {
-  flex-shrink: 0;
-}
-
-.action-btn {
-  border: none;
-  background: none;
-  color: var(--text-muted);
-  font-size: 11px;
-  cursor: pointer;
-  padding: 0 4px;
+.panel-header {
+  margin-bottom: 10px;
 }
 
 /* DRAWER */
@@ -610,10 +561,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.drawer h3 {
-  margin: 0 0 4px;
 }
 
 .trend-section h4 {
@@ -648,4 +595,14 @@ body {
   padding: 6px 8px;
   font-family: inherit;
   font-size: 12px;
+}
+
+/* RESPONSIVE (light touch) */
+
+@media (max-width: 960px) {
+  .dashboard-grid,
+  .dashboard-row,
+  .two-col {
+    grid-template-columns: 1fr;
+  }
 }
