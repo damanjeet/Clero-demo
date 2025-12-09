@@ -1,102 +1,92 @@
+// Basic screen routing
 function goToScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  const target = document.getElementById(id);
-  if (target) target.classList.add("active");
+  const screen = document.getElementById(id);
+  if (screen) screen.classList.add("active");
 }
 
-function goToScreenFromNav(el) {
-  const screenId = el.getAttribute("data-screen");
-  const navKey = el.getAttribute("data-nav");
+// Role panel switching (counselor, student, parent)
+function switchRolePanel(navEl, role, panelId) {
+  const screenId =
+    role === "counselor" ? "counselor-screen" :
+    role === "student"   ? "student-screen"   :
+    role === "parent"    ? "parent-screen"    : null;
 
-  // Clear active from all nav items globally
-  document.querySelectorAll(".nav-item").forEach(n => {
-    if (n.getAttribute("data-nav")) n.classList.remove("active");
-  });
+  if (!screenId) return;
 
-  // Mark all nav items with the same navKey as active
-  if (navKey) {
-    document.querySelectorAll(`.nav-item[data-nav="${navKey}"]`).forEach(n => n.classList.add("active"));
+  const screen = document.getElementById(screenId);
+  if (!screen) return;
+
+  // Update nav active within this sidebar
+  const sidebar = navEl.closest(".sidebar");
+  if (sidebar) {
+    sidebar.querySelectorAll(".nav-item").forEach(item => {
+      item.classList.toggle("active", item === navEl);
+    });
   }
 
-  goToScreen(screenId);
+  // Update panels within this screen
+  screen.querySelectorAll(".role-panel").forEach(p => {
+    const id = p.getAttribute("data-panel-id");
+    p.classList.toggle("active", id === panelId);
+  });
 }
 
+// COUNSELOR: open student profile (for now just opens detail drawer)
 function openStudentProfile() {
-  goToScreen("student-profile-screen");
+  // In a richer version you'd navigate into a full student profile.
+  // For this prototype we just open the drawer on the dashboard context.
+  openScoreDetail("counselor");
 }
 
-/* DASHBOARD SNAPSHOT TOGGLE & CLICK-THROUGH (COUNSELOR) */
-
+// COUNSELOR: dashboard snapshot toggle
 function setSnapshotMode(mode) {
-  // Toggle tabs
-  document.querySelectorAll("#dashboard-screen .score-tab").forEach(tab => {
+  // Toggle tab active
+  document.querySelectorAll("#counselor-screen .score-tabs .score-tab").forEach(tab => {
     tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
   });
 
-  // Update score display
-  const numEl = document.getElementById("snapshot-score-number");
+  const numEl   = document.getElementById("snapshot-score-number");
   const labelEl = document.getElementById("snapshot-score-label");
-  const descEl = document.getElementById("snapshot-score-desc");
-  const cardEl = document.querySelector("#dashboard-screen .snapshot-card");
+  const descEl  = document.getElementById("snapshot-score-desc");
+  const cardEl  = document.querySelector("#counselor-screen .snapshot-card");
 
   if (!numEl || !labelEl || !descEl || !cardEl) return;
 
   if (mode === "counselor") {
-    numEl.textContent = "6.4";
+    numEl.textContent   = "6.4";
     labelEl.textContent = "Counselor score";
-    descEl.textContent = "Your adjusted view of Sara’s readiness. AI baseline currently 6.7.";
+    descEl.textContent  = "Your adjusted view of Sara’s readiness. AI baseline currently 6.7.";
   } else {
-    numEl.textContent = "6.7";
+    numEl.textContent   = "6.7";
     labelEl.textContent = "AI system score";
-    descEl.textContent = "Derived from academics, rigor, ECs, leadership, skills and essays. Counselor currently at 6.4.";
+    descEl.textContent  = "Derived from academics, rigor, ECs, leadership, skills and essays. Counselor currently at 6.4.";
   }
 
   cardEl.setAttribute("data-mode", mode);
 }
 
+// COUNSELOR: dashboard -> drawer
 function openSnapshotScore() {
-  const cardEl = document.querySelector("#dashboard-screen .snapshot-card");
+  const cardEl = document.querySelector("#counselor-screen .snapshot-card");
   const mode = cardEl ? (cardEl.getAttribute("data-mode") || "counselor") : "counselor";
-  goToScreen("student-profile-screen");
-  setTimeout(() => {
-    openScoreDetail(mode === "system" ? "system" : "counselor");
-  }, 60);
+  openScoreDetail(mode === "system" ? "system" : "counselor");
 }
 
 function openSnapshotSubscore(label, sysVal, counselVal) {
-  goToScreen("student-profile-screen");
-  setTimeout(() => {
-    openSubscore(label, sysVal, counselVal);
-  }, 60);
+  openSubscore(label, sysVal, counselVal);
 }
 
-/* READINESS TAB TOGGLE (COUNSELOR) */
-
-function setReadinessMode(mode) {
-  // Toggle tabs inside readiness tab
-  document.querySelectorAll("#tab-readiness .score-tab").forEach(tab => {
-    tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
-  });
-
-  // Toggle which hero card is visible
-  document.querySelectorAll("#tab-readiness .readiness-card").forEach(card => {
-    card.classList.toggle("active", card.getAttribute("data-mode") === mode);
-  });
-}
-
-/* DRAWER / SCORE DETAILS (COUNSELOR) */
-
-let currentDetailType = null;
-
+// COUNSELOR: drawer logic
 function openScoreDetail(type) {
-  currentDetailType = type;
   const titleEl = document.getElementById("drawer-title");
-  const bodyEl = document.getElementById("drawer-body");
-  const trendMeta = document.getElementById("trend-meta");
+  const bodyEl  = document.getElementById("drawer-body");
+  const trendMeta    = document.getElementById("trend-meta");
   const trendSummary = document.getElementById("trend-summary");
   const notesSection = document.getElementById("counselor-notes-section");
+  const drawer       = document.getElementById("drawer");
 
-  if (!titleEl || !bodyEl || !trendMeta || !trendSummary || !notesSection) return;
+  if (!titleEl || !bodyEl || !trendMeta || !trendSummary || !notesSection || !drawer) return;
 
   if (type === "system") {
     titleEl.textContent = "System readiness score — 6.7 / 10";
@@ -107,90 +97,103 @@ function openScoreDetail(type) {
     trendSummary.textContent =
       "AI view: Sara’s system score has improved steadily as academics and rigor strengthened, but further gains depend on leadership and essay quality.";
     notesSection.style.display = "none";
-  } else if (type === "counselor") {
+  } else {
     titleEl.textContent = "Counselor readiness score — 6.4 / 10";
     bodyEl.textContent =
       "Your adjusted readiness score for Sara. Use this to reflect nuances the system may under- or over-weight.";
     trendMeta.textContent =
-      "Example: You have held the score slightly below system level while you wait for more consistent leadership and follow-through.";
+      "Example: You’ve held the score slightly below the system level while you wait for more consistent leadership and follow-through.";
     trendSummary.textContent =
-      "AI summary (example): Your notes emphasize maturity and independence in real-world contexts that are not fully captured in the system inputs.";
+      "AI summary (example): Your notes emphasize real-world maturity and independence that aren’t fully captured in the system inputs.";
     notesSection.style.display = "block";
   }
 
-  document.getElementById("drawer").style.display = "flex";
+  drawer.style.display = "flex";
 }
 
 function openSubscore(label, sysVal, counselVal) {
-  currentDetailType = "subscore";
   const titleEl = document.getElementById("drawer-title");
-  const bodyEl = document.getElementById("drawer-body");
-  const trendMeta = document.getElementById("trend-meta");
+  const bodyEl  = document.getElementById("drawer-body");
+  const trendMeta    = document.getElementById("trend-meta");
   const trendSummary = document.getElementById("trend-summary");
   const notesSection = document.getElementById("counselor-notes-section");
+  const drawer       = document.getElementById("drawer");
 
-  if (!titleEl || !bodyEl || !trendMeta || !trendSummary || !notesSection) return;
+  if (!titleEl || !bodyEl || !trendMeta || !trendSummary || !notesSection || !drawer) return;
 
-  titleEl.textContent = `${label} — System ${sysVal}/10 · Counselor ${counselVal}/10`;
+  titleEl.textContent =
+    `${label} — System ${sysVal}/10 · Counselor ${counselVal}/10`;
   bodyEl.textContent =
-    `System score for ${label.toLowerCase()} is ${sysVal}/10, with your counselor view at ${counselVal}/10. ` +
-    "In a full build, this panel would show GPA, coursework, activities, or essay evidence that drives this subscore.";
-
+    `System score for ${label.toLowerCase()} is ${sysVal}/10, with your counselor view at ${counselVal}/10. `
+    + "In a full build, this panel would show GPA, coursework, activities, or essay evidence that drives this subscore.";
   trendMeta.textContent =
     `Example: ${label} has improved slightly over the last term as new achievements were recorded.`;
   trendSummary.textContent =
     `AI interpretation placeholder for ${label}: where improvements have come from and what would move this closer to a 9 or 10.`;
-
   notesSection.style.display = "block";
-  document.getElementById("drawer").style.display = "flex";
+
+  drawer.style.display = "flex";
 }
 
 function closeDrawer() {
-  const d = document.getElementById("drawer");
-  if (d) d.style.display = "none";
+  const drawer = document.getElementById("drawer");
+  if (drawer) drawer.style.display = "none";
 }
 
-/* TABS (COUNSELOR STUDENT PROFILE) */
+// STUDENT: score toggle (dashboard + readiness panel)
+function setStudentScoreMode(mode, detailOnly) {
+  // Toggle tabs in whichever panel is visible
+  document.querySelectorAll("#student-screen .score-tabs .score-tab").forEach(tab => {
+    const m = tab.getAttribute("data-mode");
+    if (!detailOnly) {
+      tab.classList.toggle("active", m === mode);
+    } else {
+      // If called from detail panel "only", we only update tabs in that panel
+      const panel = tab.closest(".role-panel");
+      if (panel && panel.getAttribute("data-panel-id") === "s-readiness") {
+        tab.classList.toggle("active", m === mode);
+      }
+    }
+  });
 
-function switchTab(tabEl) {
-  const container = tabEl.closest(".main-content");
-  if (!container) return;
+  const aiScore = 6.7;
+  const counselorScore = 6.4;
 
-  container.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  tabEl.classList.add("active");
+  // Dashboard card
+  if (!detailOnly) {
+    const dashNum   = document.getElementById("student-score-number");
+    const dashLabel = document.getElementById("student-score-label");
+    const dashDesc  = document.getElementById("student-score-desc");
+    if (dashNum && dashLabel && dashDesc) {
+      if (mode === "counselor") {
+        dashNum.textContent   = counselorScore.toFixed(1);
+        dashLabel.textContent = "Counselor readiness";
+        dashDesc.textContent  =
+          "This is your counselor’s view, based on their experience and everything they know about you.";
+      } else {
+        dashNum.textContent   = aiScore.toFixed(1);
+        dashLabel.textContent = "AI readiness";
+        dashDesc.textContent  =
+          "This score is based on your grades, courses, activities, leadership, skills and essays so far.";
+      }
+    }
+  }
 
-  const tabId = tabEl.getAttribute("data-tab");
-  container.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-  const panel = document.getElementById("tab-" + tabId);
-  if (panel) panel.classList.add("active");
-}
-
-/* ACTION PLAN EDITING (COUNSELOR) */
-
-function addActionItem() {
-  const list = document.getElementById("action-list");
-  if (!list) return;
-
-  const li = document.createElement("li");
-  li.className = "action-item";
-  li.innerHTML = `
-    <span class="action-text">New action item (placeholder) – e.g., “Add one deeper community project this term.”</span>
-    <span class="action-controls">
-      <button class="action-btn" onclick="markActionDone(this)">Done</button>
-      <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
-    </span>
-  `;
-  list.appendChild(li);
-}
-
-function markActionDone(btn) {
-  const item = btn.closest(".action-item");
-  if (!item) return;
-  const text = item.querySelector(".action-text");
-  if (text) text.classList.toggle("done");
-}
-
-function removeActionItem(btn) {
-  const item = btn.closest(".action-item");
-  if (item) item.remove();
+  // Readiness detail card
+  const detailNum   = document.getElementById("student-score-number-detail");
+  const detailLabel = document.getElementById("student-score-label-detail");
+  const detailDesc  = document.getElementById("student-score-desc-detail");
+  if (detailNum && detailLabel && detailDesc) {
+    if (mode === "counselor") {
+      detailNum.textContent   = counselorScore.toFixed(1);
+      detailLabel.textContent = "Counselor readiness";
+      detailDesc.textContent  =
+        "This is the counselor’s score, taking into account context the AI might not fully see.";
+    } else {
+      detailNum.textContent   = aiScore.toFixed(1);
+      detailLabel.textContent = "AI readiness";
+      detailDesc.textContent  =
+        "This is the AI’s score, based purely on the data in your profile.";
+    }
+  }
 }
