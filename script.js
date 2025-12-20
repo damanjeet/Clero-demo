@@ -32,11 +32,24 @@ function switchRolePanel(navEl, role, panelId) {
   });
 }
 
-// COUNSELOR: open student profile (for now just opens detail drawer)
+// COUNSELOR: open student profile
 function openStudentProfile() {
-  // In a richer version you'd navigate into a full student profile.
-  // For this prototype we just open the drawer on the dashboard context.
-  openScoreDetail("counselor");
+  // Switch to student profile panel
+  document.querySelectorAll(".role-panel").forEach(panel => {
+    panel.classList.remove("active");
+  });
+
+  const profile = document.getElementById("student-profile");
+  if (profile) profile.classList.add("active");
+
+  // Update sidebar nav state
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.classList.remove("active");
+  });
+
+  // Optionally highlight Students in sidebar
+  const studentsNav = document.querySelector('.nav-item[data-nav="students"]');
+  if (studentsNav) studentsNav.classList.add("active");
 }
 
 // COUNSELOR: dashboard snapshot toggle
@@ -195,5 +208,25 @@ function setStudentScoreMode(mode, detailOnly) {
       detailDesc.textContent  =
         "This is the AI’s score, based purely on the data in your profile.";
     }
+  }
+}
+function setProfileScoreMode(mode) {
+  document
+    .querySelectorAll("#student-profile .score-tab")
+    .forEach(tab => {
+      tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
+    });
+
+  const num = document.getElementById("profile-score-number");
+  const label = document.getElementById("profile-score-label");
+
+  if (!num || !label) return;
+
+  if (mode === "system") {
+    num.textContent = "6.7";
+    label.textContent = "AI system score";
+  } else {
+    num.textContent = "6.4";
+    label.textContent = "Counselor score";
   }
 }
