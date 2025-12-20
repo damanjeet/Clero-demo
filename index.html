@@ -2,133 +2,892 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>CareerGPS – Counselor</title>
+  <title>CareerGPS Prototype</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
 </head>
+
 <body>
 
-<!-- LOGIN -->
+<!-- LOGIN SCREEN -->
 <div id="login-screen" class="screen active">
   <div class="login-shell">
-    <div class="login-left">
-      <h1>CareerGPS</h1>
-      <p>AI-native college readiness workspace for counselors.</p>
+    <div class="login-hero">
+      <div class="login-hero-header">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">College-ready, the calm way.</div>
+        </div>
+      </div>
+      <h1>Give every student a clear, data-backed path to college.</h1>
+      <p>CareerGPS brings students, parents, and counselors into one AI-native workspace with readiness scores, action plans, and essay workflows.</p>
     </div>
-    <div class="login-right">
-      <h2>Sign in</h2>
-      <input placeholder="Email" />
-      <input placeholder="Password" type="password" />
-      <button onclick="goToScreen('app-screen')">Continue as Counselor</button>
+    <div class="login-main">
+      <h2>Welcome back</h2>
+      <p class="muted">This prototype focuses on the counselor experience.</p>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="you@school.org" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" />
+      </div>
+      <button class="btn btn-primary btn-full" onclick="goToScreen('dashboard-screen')">
+        Continue as Counselor
+      </button>
+      <p class="muted small" style="margin-top:10px;">
+        For now, this just routes you into the counselor dashboard – no auth needed.
+      </p>
     </div>
   </div>
 </div>
 
-<!-- APP -->
-<div id="app-screen" class="screen">
+<!-- DASHBOARD -->
+<div id="dashboard-screen" class="screen">
   <div class="app-shell">
-
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-      <h3>CareerGPS</h3>
-      <div class="nav-item active" data-nav="dashboard" onclick="showPanel('c-dashboard')">Dashboard</div>
-      <div class="nav-item" data-nav="students" onclick="showPanel('c-students')">Students</div>
-      <div class="nav-item" data-nav="essays" onclick="showPanel('c-essays')">Essays</div>
-      <div class="nav-item" data-nav="tasks" onclick="showPanel('c-tasks')">Tasks</div>
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item active" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)">
+        <span class="icon">🏠</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)">
+        <span class="icon">👥</span><span>Students</span>
+      </div>
+
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)">
+        <span class="icon">📝</span><span>Essays</span>
+      </div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)">
+        <span class="icon">✅</span><span>Tasks</span>
+      </div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)">
+        <span class="icon">📅</span><span>Schedule</span>
+      </div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)">
+        <span class="icon">📥</span><span>Inbox</span>
+      </div>
+
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)">
+        <span class="icon">📊</span><span>AI Insights</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="muted small">
+          Role: Counselor<br/>
+          Prototype · v0.5
+        </div>
+      </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
-
-      <!-- DASHBOARD -->
-      <section id="c-dashboard" class="panel active">
-        <h2>Dashboard</h2>
-
-        <div class="card">
-          <h3>Students needing attention</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th><th>Grade</th><th>Readiness</th><th>Issue</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr onclick="openStudentProfile()">
-                <td>Sara Kim</td><td>12</td><td>6.4</td><td>Essays</td>
-              </tr>
-              <tr>
-                <td>Daniel Lopez</td><td>11</td><td>5.8</td><td>Leadership</td>
-              </tr>
-            </tbody>
-          </table>
+      <header class="main-header">
+        <div>
+          <h1>Counselor Dashboard</h1>
+          <p class="muted small">
+            Who needs your attention today across 300+ students, essays, and parents.
+          </p>
         </div>
-      </section>
-
-      <!-- STUDENTS LIST -->
-      <section id="c-students" class="panel">
-        <h2>Students</h2>
-
-        <div class="card">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th><th>Grade</th><th>System</th><th>Counselor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr onclick="openStudentProfile()">
-                <td>Sara Kim</td><td>12</td><td>6.7</td><td>6.4</td>
-              </tr>
-              <tr>
-                <td>Daniel Lopez</td><td>11</td><td>6.0</td><td>5.8</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="header-actions">
+          <div class="header-search">
+            <span>🔍</span>
+            <input placeholder="Search students, tasks, essays…" />
+          </div>
+          <div class="chip">Role: Counselor</div>
+          <div class="avatar"></div>
         </div>
-      </section>
+      </header>
 
-      <!-- STUDENT PROFILE -->
-      <section id="c-student-profile" class="panel">
-        <h2>Sara Kim</h2>
-        <p class="muted">Grade 12 · Intended major: Computer Science</p>
-
-        <div class="grid">
+      <div class="main-content">
+        <div class="dashboard-grid">
+          <!-- LEFT: Priority students -->
           <div class="card">
-            <h3>Readiness</h3>
-
-            <div class="score-circle" onclick="openDrawer('Counselor readiness score: 6.4')">
-              6.4
+            <div class="card-header-row">
+              <h2>Students needing attention</h2>
+              <span class="muted small">AI-ranked by urgency</span>
             </div>
-
-            <div class="subscore" onclick="openDrawer('Academics details')">Academics</div>
-            <div class="subscore" onclick="openDrawer('Leadership details')">Leadership</div>
-            <div class="subscore" onclick="openDrawer('Essays details')">Essays</div>
+            <div class="table-wrapper compact">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Grade</th>
+                    <th>Readiness</th>
+                    <th>Risk</th>
+                    <th>Next action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="click-row" onclick="openStudentProfile()">
+                    <td>Sara Kim</td>
+                    <td>12</td>
+                    <td>System 6.7 / Counsel 6.4</td>
+                    <td><span class="pill pill-warning small">Essay behind</span></td>
+                    <td>Review Personal Statement Draft 1</td>
+                  </tr>
+                  <tr class="click-row">
+                    <td>Daniel Lopez</td>
+                    <td>11</td>
+                    <td>System 6.0 / Counsel 5.8</td>
+                    <td><span class="pill pill-danger small">At risk</span></td>
+                    <td>Assign 30-day action plan</td>
+                  </tr>
+                  <tr class="click-row">
+                    <td>Amrita Patel</td>
+                    <td>10</td>
+                    <td>System 7.3 / Counsel 7.1</td>
+                    <td><span class="pill pill-success small">On track</span></td>
+                    <td>Confirm summer program shortlist</td>
+                  </tr>
+                  <tr class="click-row">
+                    <td>Jordan Smith</td>
+                    <td>12</td>
+                    <td>System 7.1 / Counsel 6.9</td>
+                    <td><span class="pill pill-warning small">EC gap</span></td>
+                    <td>Deepen one spike activity</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
+          <!-- RIGHT: Readiness snapshot -->
           <div class="card">
-            <h3>Action Plan</h3>
-            <ul>
-              <li>Finish Personal Statement draft 2</li>
-              <li>Clarify robotics leadership impact</li>
+            <div class="card-header-row">
+              <div>
+                <h2>Readiness snapshot — Sara Kim</h2>
+                <span class="muted small">Top student in “needing attention”</span>
+              </div>
+              <div class="score-tabs snapshot-tabs">
+                <div class="score-tab active" data-mode="counselor" onclick="setSnapshotMode('counselor')">Counselor</div>
+                <div class="score-tab" data-mode="system" onclick="setSnapshotMode('system')">AI</div>
+              </div>
+            </div>
+
+            <div class="snapshot-score-row">
+              <div class="score-card snapshot-card active" data-mode="counselor" onclick="openSnapshotScore()">
+                <div class="score-circle">
+                  <div class="score-inner">
+                    <div class="score-number" id="snapshot-score-number">6.4</div>
+                    <div class="score-label" id="snapshot-score-label">Counselor score</div>
+                  </div>
+                </div>
+                <p class="muted xsmall" id="snapshot-score-desc">
+                  Your adjusted view of Sara’s readiness. AI baseline currently 6.7.
+                </p>
+              </div>
+            </div>
+
+            <div class="subscore-list" style="margin-top:10px;">
+              <div class="subscore-row" onclick="openSnapshotSubscore('Academics',7,7.5)">
+                <span>Academics</span>
+                <div class="subscore-bar"><div style="width:70%"></div></div>
+                <span class="small">Sys 7.0 / C 7.5</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Course rigor',6,6)">
+                <span>Course rigor</span>
+                <div class="subscore-bar"><div style="width:60%"></div></div>
+                <span class="small">Sys 6.0 / C 6.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Extracurricular depth',5,5)">
+                <span>Extracurricular depth</span>
+                <div class="subscore-bar"><div style="width:50%"></div></div>
+                <span class="small">Sys 5.0 / C 5.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Leadership',4,5)">
+                <span>Leadership</span>
+                <div class="subscore-bar"><div style="width:40%"></div></div>
+                <span class="small">Sys 4.0 / C 5.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Consistency',7,7)">
+                <span>Consistency</span>
+                <div class="subscore-bar"><div style="width:70%"></div></div>
+                <span class="small">Sys 7.0 / C 7.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Skills',6,6)">
+                <span>Skills</span>
+                <div class="subscore-bar"><div style="width:60%"></div></div>
+                <span class="small">Sys 6.0 / C 6.0</span>
+              </div>
+              <div class="subscore-row" onclick="openSnapshotSubscore('Essays',3,3)">
+                <span>Essays</span>
+                <div class="subscore-bar"><div style="width:30%"></div></div>
+                <span class="small">Sys 3.0 / C 3.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECOND ROW -->
+        <div class="dashboard-row">
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Essay pipeline</h2>
+              <span class="muted small">Across all seniors</span>
+            </div>
+            <p class="muted small">
+              In a full product, this would show counts per stage: brainstorming, Draft 1, counselor review, final, submitted –
+              with AI suggesting which drafts to review first.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Today’s workload</h2>
+              <span class="muted small">What AI thinks you should focus on</span>
+            </div>
+            <ul class="muted small compact-list">
+              <li>Review 3 essays with highest score impact.</li>
+              <li>Assign action plans to 2 juniors with stagnating scores.</li>
+              <li>Send updates to 4 parents waiting &gt; 7 days.</li>
             </ul>
           </div>
         </div>
-      </section>
 
-      <!-- PLACEHOLDERS -->
-      <section id="c-essays" class="panel"><div class="card">Essays workspace</div></section>
-      <section id="c-tasks" class="panel"><div class="card">Tasks workspace</div></section>
-
+      </div>
     </main>
   </div>
 </div>
 
-<!-- DRAWER -->
-<div id="drawer" class="drawer" onclick="closeDrawer()">
-  <div class="drawer-inner" onclick="event.stopPropagation()">
-    <h3 id="drawer-title"></h3>
-    <p>Trendline + notes would go here.</p>
-    <button onclick="closeDrawer()">Close</button>
+<!-- STUDENTS SCREEN -->
+<div id="students-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)">
+        <span class="icon">🏠</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item active" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)">
+        <span class="icon">👥</span><span>Students</span>
+      </div>
+
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)">
+        <span class="icon">📝</span><span>Essays</span>
+      </div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)">
+        <span class="icon">✅</span><span>Tasks</span>
+      </div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)">
+        <span class="icon">📅</span><span>Schedule</span>
+      </div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)">
+        <span class="icon">📥</span><span>Inbox</span>
+      </div>
+
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)">
+        <span class="icon">📊</span><span>AI Insights</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.5</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <div>
+          <h1>Students</h1>
+          <p class="muted small">Filter and sort 300+ active students by readiness, risk, and grade.</p>
+        </div>
+        <div class="header-actions">
+          <div class="header-search">
+            <span>🔍</span>
+            <input placeholder="Search students…" />
+          </div>
+          <div class="avatar"></div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <div class="filters-row">
+          <div>
+            <label class="filter-label">Grade</label>
+            <select>
+              <option>All</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </select>
+          </div>
+          <div>
+            <label class="filter-label">Status</label>
+            <select>
+              <option>All</option>
+              <option>On track</option>
+              <option>Needs attention</option>
+              <option>At risk</option>
+            </select>
+          </div>
+          <div>
+            <label class="filter-label">Readiness band</label>
+            <select>
+              <option>All</option>
+              <option>0 – 4</option>
+              <option>4 – 6</option>
+              <option>6 – 8</option>
+              <option>8 – 10</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header-row">
+            <h2>Student roster</h2>
+            <span class="muted small">Sample rows – imagine 300+ here</span>
+          </div>
+          <div class="table-wrapper compact">
+            <table class="table table-dense">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Grade</th>
+                  <th>System</th>
+                  <th>Counselor</th>
+                  <th>Status</th>
+                  <th>Essays</th>
+                  <th>Last touch</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="click-row" onclick="openStudentProfile()">
+                  <td>Sara Kim</td>
+                  <td>12</td>
+                  <td>6.7</td>
+                  <td>6.4</td>
+                  <td><span class="pill pill-warning xsmall">Needs attention</span></td>
+                  <td>2 awaiting review</td>
+                  <td>2 days ago</td>
+                </tr>
+                <tr class="click-row">
+                  <td>Daniel Lopez</td>
+                  <td>11</td>
+                  <td>6.0</td>
+                  <td>5.8</td>
+                  <td><span class="pill pill-danger xsmall">At risk</span></td>
+                  <td>1 not started</td>
+                  <td>5 days ago</td>
+                </tr>
+                <tr class="click-row">
+                  <td>Amrita Patel</td>
+                  <td>10</td>
+                  <td>7.3</td>
+                  <td>7.1</td>
+                  <td><span class="pill pill-success xsmall">On track</span></td>
+                  <td>0 active</td>
+                  <td>Today</td>
+                </tr>
+                <tr class="click-row">
+                  <td>Jordan Smith</td>
+                  <td>12</td>
+                  <td>7.1</td>
+                  <td>6.9</td>
+                  <td><span class="pill pill-warning xsmall">EC gap</span></td>
+                  <td>3 in progress</td>
+                  <td>1 day ago</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted xsmall">
+            In a real build, this would paginate and keep performance for 300+ students per counselor.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- STUDENT PROFILE -->
+<div id="student-profile-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)">
+        <span class="icon">🏠</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)">
+        <span class="icon">👥</span><span>Students</span>
+      </div>
+
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)">
+        <span class="icon">📝</span><span>Essays</span>
+      </div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)">
+        <span class="icon">✅</span><span>Tasks</span>
+      </div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)">
+        <span class="icon">📅</span><span>Schedule</span>
+      </div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)">
+        <span class="icon">📥</span><span>Inbox</span>
+      </div>
+
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)">
+        <span class="icon">📊</span><span>AI Insights</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="muted small">Role: Counselor<br/>Prototype · v0.5</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <div>
+          <h1>Sara Kim</h1>
+          <p class="muted small">Class of 2025 · Intended major: Computer Science</p>
+        </div>
+        <div class="header-actions">
+          <div class="chip">System: 6.7 / 10</div>
+          <div class="chip pill-warning">Counselor: 6.4 / 10</div>
+          <div class="avatar"></div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <div class="tabs">
+          <div class="tab active" data-tab="overview" onclick="switchTab(this)">Overview</div>
+          <div class="tab" data-tab="readiness" onclick="switchTab(this)">Readiness score</div>
+          <div class="tab" data-tab="action" onclick="switchTab(this)">Action plan</div>
+          <div class="tab" data-tab="essays" onclick="switchTab(this)">Essays</div>
+          <div class="tab" data-tab="tasks" onclick="switchTab(this)">Tasks</div>
+          <div class="tab" data-tab="messages" onclick="switchTab(this)">Messages</div>
+        </div>
+
+        <!-- OVERVIEW -->
+        <div class="tab-panel active" id="tab-overview">
+          <div class="two-col">
+            <div class="card">
+              <h2>Summary</h2>
+              <p class="muted small">
+                Sara is on a solid academic path with room to grow in leadership and essay quality. Her readiness
+                has improved recently after adding AP Calculus and formalizing her robotics role.
+              </p>
+            </div>
+            <div class="card">
+              <h2>At a glance</h2>
+              <p class="muted small">
+                • GPA: 3.7 unweighted · 4 APs<br/>
+                • Activities: Robotics, Key Club, tutoring<br/>
+                • Parent engagement: High<br/>
+                • Next meeting: Tue 3:30 PM
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- READINESS -->
+        <div class="tab-panel" id="tab-readiness">
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header-row">
+                <h2>Overall readiness</h2>
+                <div class="score-tabs readiness-tabs">
+                  <div class="score-tab active" data-mode="counselor" onclick="setReadinessMode('counselor')">Counselor</div>
+                  <div class="score-tab" data-mode="system" onclick="setReadinessMode('system')">AI</div>
+                </div>
+              </div>
+              <div class="score-hero-row">
+                <!-- Counselor hero (default visible) -->
+                <div class="score-card readiness-card active" data-mode="counselor" onclick="openScoreDetail('counselor')">
+                  <div class="score-circle">
+                    <div class="score-inner">
+                      <div class="score-number">6.4</div>
+                      <div class="score-label">Counselor score</div>
+                    </div>
+                  </div>
+                  <p class="muted xsmall">
+                    Your curated view of Sara’s readiness. AI baseline currently 6.7.
+                  </p>
+                </div>
+
+                <!-- AI hero (shown when toggled) -->
+                <div class="score-card readiness-card" data-mode="system" onclick="openScoreDetail('system')">
+                  <div class="score-circle">
+                    <div class="score-inner">
+                      <div class="score-number">6.7</div>
+                      <div class="score-label">AI system score</div>
+                    </div>
+                  </div>
+                  <p class="muted xsmall">
+                    Derived from academics, course rigor, extracurriculars, leadership, skills and essays.
+                  </p>
+                </div>
+              </div>
+
+              <div class="subscore-list" style="margin-top:10px;">
+                <div class="subscore-row" onclick="openSubscore('Academics',7,7.5)">
+                  <span>Academics</span>
+                  <div class="subscore-bar"><div style="width:70%"></div></div>
+                  <span class="small">Sys 7.0 / C 7.5</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Course rigor',6,6)">
+                  <span>Course rigor</span>
+                  <div class="subscore-bar"><div style="width:60%"></div></div>
+                  <span class="small">Sys 6.0 / C 6.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Extracurricular depth',5,5)">
+                  <span>Extracurricular depth</span>
+                  <div class="subscore-bar"><div style="width:50%"></div></div>
+                  <span class="small">Sys 5.0 / C 5.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Leadership',4,5)">
+                  <span>Leadership</span>
+                  <div class="subscore-bar"><div style="width:40%"></div></div>
+                  <span class="small">Sys 4.0 / C 5.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Consistency',7,7)">
+                  <span>Consistency</span>
+                  <div class="subscore-bar"><div style="width:70%"></div></div>
+                  <span class="small">Sys 7.0 / C 7.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Skills',6,6)">
+                  <span>Skills</span>
+                  <div class="subscore-bar"><div style="width:60%"></div></div>
+                  <span class="small">Sys 6.0 / C 6.0</span>
+                </div>
+                <div class="subscore-row" onclick="openSubscore('Essays',3,3)">
+                  <span>Essays</span>
+                  <div class="subscore-bar"><div style="width:30%"></div></div>
+                  <span class="small">Sys 3.0 / C 3.0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>College targets</h2>
+              <p class="muted small">
+                • UCSD CS target band: 7.8–8.5<br/>
+                • Cal Poly CS: 7.3–8.0<br/>
+                • “Match” schools: 6.5–7.5
+              </p>
+              <p class="muted small">
+                Based on current trajectory, Sara could reach ~7.2 by early senior fall if she hits the recommended
+                milestones in academics, leadership, and essays.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTION PLAN -->
+        <div class="tab-panel" id="tab-action">
+          <div class="card">
+            <div class="card-header-row">
+              <h2>Action plan</h2>
+              <button class="btn btn-primary btn-small" onclick="addActionItem()">+ Add action item</button>
+            </div>
+            <p class="muted small">
+              Completing this 30-day plan is estimated to move Sara from <b>6.4 → 6.9</b>.
+              The 90-day plan could move her to ~7.3 with consistent execution.
+            </p>
+            <ul id="action-list" class="muted small compact-list">
+              <li class="action-item">
+                <span class="action-text">Take Personal Statement to Draft 2 by next week.</span>
+                <span class="action-controls">
+                  <button class="action-btn" onclick="markActionDone(this)">Done</button>
+                  <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
+                </span>
+              </li>
+              <li class="action-item">
+                <span class="action-text">Formalize robotics leadership role and document impact.</span>
+                <span class="action-controls">
+                  <button class="action-btn" onclick="markActionDone(this)">Done</button>
+                  <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
+                </span>
+              </li>
+              <li class="action-item">
+                <span class="action-text">Confirm 1–2 summer academic or research programs.</span>
+                <span class="action-controls">
+                  <button class="action-btn" onclick="markActionDone(this)">Done</button>
+                  <button class="action-btn" onclick="removeActionItem(this)">Remove</button>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ESSAYS -->
+        <div class="tab-panel" id="tab-essays">
+          <div class="card">
+            <h2>Essays</h2>
+            <p class="muted small">
+              In a full build, this tab would show each prompt, AI quality scores, draft history, and inline comments.
+            </p>
+          </div>
+        </div>
+
+        <!-- TASKS -->
+        <div class="tab-panel" id="tab-tasks">
+          <div class="card">
+            <h2>Tasks</h2>
+            <p class="muted small">
+              This is where you’d see tasks tied to readiness score impact, with ownership split between counselor and student.
+            </p>
+          </div>
+        </div>
+
+        <!-- MESSAGES (per student) -->
+        <div class="tab-panel" id="tab-messages">
+          <div class="card">
+            <h2>Messages (Sara)</h2>
+            <p class="muted small">
+              In a full product, this would show all threads with Sara and her parents, plus AI summaries and suggested replies.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- DETAIL DRAWER -->
+    <div id="drawer" class="drawer-backdrop" onclick="closeDrawer()">
+      <div class="drawer" onclick="event.stopPropagation()">
+        <h3 id="drawer-title"></h3>
+        <p id="drawer-body" class="muted small"></p>
+
+        <div id="trend-section" class="trend-section">
+          <h4>Trend over time</h4>
+          <div class="trend-meta muted xsmall" id="trend-meta"></div>
+          <div class="trendline-placeholder">
+            <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="trendline-svg">
+              <!-- System score line -->
+              <polyline
+                points="0,30 15,28 30,26 45,24 60,22 75,19 90,16 100,14"
+                fill="none"
+                stroke="#1E7F77"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <!-- Counselor score line -->
+              <polyline
+                points="0,32 15,31 30,30 45,29 60,27 75,25 90,23 100,22"
+                fill="none"
+                stroke="#A6E3C4"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-dasharray="3 3"
+              />
+            </svg>
+            <span class="muted xsmall">Sample trendline (last 12 months) — solid = system, dashed = counselor.</span>
+          </div>
+          <p class="muted xsmall" id="trend-summary"></p>
+        </div>
+
+        <div id="counselor-notes-section" class="counselor-notes-section" style="display:none;">
+          <h4>Counselor notes</h4>
+          <textarea id="counselor-notes" placeholder="Add context for why your score differs from the system…"></textarea>
+          <p class="muted xsmall" id="notes-ai-summary">
+            AI summary of your notes would appear here for parents and future you.
+          </p>
+        </div>
+
+        <button class="btn btn-primary" onclick="closeDrawer()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ESSAYS / TASKS / SCHEDULE / INBOX / INSIGHTS PLACEHOLDERS -->
+<div id="essays-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item active" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
+    </aside>
+    <main class="main">
+      <header class="main-header"><h1>Essays</h1></header>
+      <div class="main-content">
+        <div class="card">
+          <h2>Essay pipeline</h2>
+          <p class="muted small">Placeholder for a richer pipeline view.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="tasks-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item active" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
+    </aside>
+    <main class="main">
+      <header class="main-header"><h1>Tasks</h1></header>
+      <div class="main-content">
+        <div class="card">
+          <h2>Tasks workspace</h2>
+          <p class="muted small">Placeholder for a Kanban/list of tasks by impact and owner.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="schedule-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item active" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
+    </aside>
+    <main class="main">
+      <header class="main-header"><h1>Schedule</h1></header>
+      <div class="main-content">
+        <div class="card">
+          <h2>Scheduling</h2>
+          <p class="muted small">Placeholder for integrated calendar with student sessions.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="messages-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item active" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
+    </aside>
+    <main class="main">
+      <header class="main-header"><h1>Inbox</h1></header>
+      <div class="main-content">
+        <div class="card">
+          <h2>Messaging hub</h2>
+          <p class="muted small">Placeholder for internal messaging replacing email.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="insights-screen" class="screen">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-logo-row">
+        <div class="logo-mark">G</div>
+        <div class="logo-text">
+          <div class="logo-title">CareerGPS</div>
+          <div class="logo-sub">Counselor workspace</div>
+        </div>
+      </div>
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item" data-screen="dashboard-screen" data-nav="dashboard" onclick="goToScreenFromNav(this)"><span class="icon">🏠</span><span>Dashboard</span></div>
+      <div class="nav-item" data-screen="students-screen" data-nav="students" onclick="goToScreenFromNav(this)"><span class="icon">👥</span><span>Students</span></div>
+      <div class="nav-section-label">Work</div>
+      <div class="nav-item" data-screen="essays-screen" data-nav="essays" onclick="goToScreenFromNav(this)"><span class="icon">📝</span><span>Essays</span></div>
+      <div class="nav-item" data-screen="tasks-screen" data-nav="tasks" onclick="goToScreenFromNav(this)"><span class="icon">✅</span><span>Tasks</span></div>
+      <div class="nav-item" data-screen="schedule-screen" data-nav="schedule" onclick="goToScreenFromNav(this)"><span class="icon">📅</span><span>Schedule</span></div>
+      <div class="nav-item" data-screen="messages-screen" data-nav="inbox" onclick="goToScreenFromNav(this)"><span class="icon">📥</span><span>Inbox</span></div>
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item active" data-screen="insights-screen" data-nav="insights" onclick="goToScreenFromNav(this)"><span class="icon">📊</span><span>AI Insights</span></div>
+      <div class="sidebar-footer"><div class="muted small">Role: Counselor<br/>Prototype · v0.5</div></div>
+    </aside>
+    <main class="main">
+      <header class="main-header"><h1>AI Insights</h1></header>
+      <div class="main-content">
+        <div class="card">
+          <h2>AI insights overview</h2>
+          <p class="muted small">Placeholder for cohort-level risk, readiness distributions, and high-impact opportunities.</p>
+        </div>
+      </div>
+    </main>
   </div>
 </div>
 
