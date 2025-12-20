@@ -747,6 +747,75 @@
     </main>
   </div>
 </div>
+  <!-- STUDENT PROFILE SCREEN -->
+<section id="student-profile" class="role-panel">
+  <header class="panel-header">
+    <h2>Sara Kim — Student Profile</h2>
+    <p class="muted small">
+      Grade 12 · Intended major: Computer Science · Class of 2025
+    </p>
+  </header>
+
+  <div class="dashboard-grid">
+    <!-- Readiness card -->
+    <div class="card">
+      <div class="card-header-row">
+        <h3>Readiness</h3>
+        <div class="score-tabs">
+          <div class="score-tab active" data-mode="counselor"
+               onclick="setProfileScoreMode('counselor')">Counselor</div>
+          <div class="score-tab" data-mode="system"
+               onclick="setProfileScoreMode('system')">AI</div>
+        </div>
+      </div>
+
+      <div class="snapshot-score-row">
+        <div class="score-card snapshot-card" data-mode="counselor"
+             onclick="openScoreDetail('counselor')">
+          <div class="score-circle">
+            <div class="score-inner">
+              <div class="score-number" id="profile-score-number">6.4</div>
+              <div class="score-label" id="profile-score-label">Counselor score</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subscore-list">
+        <div class="subscore-row" onclick="openSnapshotSubscore('Academics',7,7.5)">
+          <span>Academics</span>
+          <div class="subscore-bar"><div style="width:70%"></div></div>
+          <span class="small">Sys 7.0 / C 7.5</span>
+        </div>
+        <div class="subscore-row" onclick="openSnapshotSubscore('Leadership',4,5)">
+          <span>Leadership</span>
+          <div class="subscore-bar"><div style="width:40%"></div></div>
+          <span class="small">Sys 4.0 / C 5.0</span>
+        </div>
+        <div class="subscore-row" onclick="openSnapshotSubscore('Essays',3,3)">
+          <span>Essays</span>
+          <div class="subscore-bar"><div style="width:30%"></div></div>
+          <span class="small">Sys 3.0 / C 3.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action plan -->
+    <div class="card">
+      <div class="card-header-row">
+        <h3>Action Plan</h3>
+        <button class="btn btn-small btn-primary">+ Add</button>
+      </div>
+
+      <ul class="compact-list small">
+        <li>📝 Finish Personal Statement Draft 2</li>
+        <li>🤖 Clarify robotics leadership impact</li>
+        <li>📘 Review senior-year course rigor</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 
 <!-- PARENT APP SCREEN -->
 <div id="parent-screen" class="screen">
